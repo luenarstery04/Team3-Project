@@ -23,3 +23,18 @@ nav.menu a {
     height: 1000px;
     border: 1px solid black;
 }
+
+.album_wrap {
+    position: relative;
+}
+
+.album_wrap img {
+    vertical-align: middle;
+}
+
+.album_info {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    text-align: center;
+}
