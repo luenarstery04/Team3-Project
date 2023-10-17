@@ -1,11 +1,6 @@
-CREATE TABLE `users` (
-  `id` integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `username` varchar(150) UNIQUE,
-  `password` varchar(128),
-  `user_name` varchar(100),
-  `email` varchar(50) UNIQUE,
-  `user_genre` varchar(50)
-);
+CREATE SCHEMA ssavi_db;
+
+use ssavi_db;
 
 CREATE TABLE `Albums` (
   `album_id` varchar(50) PRIMARY KEY NOT NULL,
@@ -25,7 +20,7 @@ CREATE TABLE `Tracks` (
 
 CREATE TABLE `Liked_Album` (
   `LA_id` integer PRIMARY KEY NOT NULL,
-  `id` integer NOT NULL,
+  `id` bigint NOT NULL,
   `album_id` varchar(50) NOT NULL
 );
 
@@ -48,12 +43,12 @@ CREATE TABLE `audio_features` (
 
 ALTER TABLE `Tracks` ADD FOREIGN KEY (`album_id`) REFERENCES `Albums` (`album_id`);
 
-ALTER TABLE `Liked_Album` ADD FOREIGN KEY (`id`) REFERENCES `users` (`id`);
+ALTER TABLE `Liked_Album` ADD FOREIGN KEY (`id`) REFERENCES `users_app_user` (`id`);
 
 ALTER TABLE `Liked_Album` ADD FOREIGN KEY (`album_id`) REFERENCES `Albums` (`album_id`);
 
 ALTER TABLE `Play_list` ADD FOREIGN KEY (`track_id`) REFERENCES `Tracks` (`track_id`);
 
-ALTER TABLE `Play_list` ADD FOREIGN KEY (`username`) REFERENCES `users` (`username`);
+ALTER TABLE `Play_list` ADD FOREIGN KEY (`username`) REFERENCES `users_app_user` (`username`);
 
 ALTER TABLE `audio_features` ADD FOREIGN KEY (`track_id`) REFERENCES `Tracks` (`track_id`);
