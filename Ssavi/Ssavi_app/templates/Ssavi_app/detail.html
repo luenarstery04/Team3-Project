@@ -1,6 +1,7 @@
 <!-- 상세페이지입니다 -->
+{% extends 'base.html' %}
 {% block content %}
-<nav id="index_nav">
+<nav class="menu">
     <a href="{% url 'recommend' %}">추천음악</a>
     <a href="{% url 'index' %}">최신음악</a>
     {% if user.is_authenticated %}
