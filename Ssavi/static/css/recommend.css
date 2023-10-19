@@ -2,14 +2,51 @@
     overflow: hidden;
 }
 
-.recom_img {
+.recom_img_box {
     display: inline;
+    overflow: hidden;
+}
+
+.recom_img_box h4 {
+    position: absolute;
+    z-index: 2;
+}
+
+#al_name {
+    margin-top: 30px;
+    margin-right: 10px;
+}
+
+#al_artist {
+    margin-top: 42px;
+}
+
+.recom_img {
+    position: relative;
+    z-index: 1;
     width: 200px;
     margin-right: 5px;
+    transition: all 0.2s linear;
+}
+
+.recom_img img {
+    background-color: black;
     overflow: hidden;
+}
+
+.recom_img:hover {
+    opacity: 0.7;
 }
 
 .recom_display {
     display: flex;
     overflow: hidden;
+}
+
+.heart_icon {
+    position: absolute;
+    z-index: 2;
+    width: 40px;
+    margin-left: 150px;
+    margin-top: 155px;
 }

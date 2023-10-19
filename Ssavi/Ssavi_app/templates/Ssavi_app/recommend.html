@@ -13,28 +13,12 @@
             {% for album in recom_albums %}
             {% if album.album_genre == 'jazz' %}
             <li>
-                <div class="recom_img">
+                <a href="" class="recom_img_box">
+                    <img class="heart_icon" src="{% static '/image/heart_icon1.png' %}" alt="">
+                    <h4 id="al_name">{{ album.album_name }}</h4>
+                    <h4 id="al_artist">{{ album.album_artist }}</h4>
                     <img class="recom_img" src="{{ album.album_image }}" alt="">
-                </div>
-                <div>
-                    <h4>{{ album.album_name }}</h4>
-                    <a href="#">{{ album.album_artist }}</a>
-                </div>
-            </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-        <ul class="recom_display">
-            {% for album in recom_albums %}
-            {% if album.album_genre == 'alternative' %}
-            <li>
-                <div class="recom_img">
-                    <img class="recom_img" src="{{ album.album_image }}" alt="">
-                </div>
-                <div>
-                    <h4>{{ album.album_name }}</h4>
-                    <a href="#">{{ album.album_artist }}</a>
-                </div>
+                </a>
             </li>
             {% endif %}
             {% endfor %}
@@ -43,13 +27,14 @@
             {% for album in recom_albums %}
             {% if album.album_genre == 'k-pop' %}
             <li>
-                <div class="recom_img">
-                    <img class="recom_img" src="{{ album.album_image }}" alt="">
-                </div>
                 <div>
-                    <h4>{{ album.album_name }}</h4>
-                    <a href="#">{{ album.album_artist }}</a>
+                    <img class="heart_icon" src="{% static '/image/heart_icon1.png' %}" alt="">
                 </div>
+                <a href="" class="recom_img_box">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                    <h4>{{ album.album_name }}</h4>
+                    <h4>{{ album.album_artist }}</h4>
+                </a>
             </li>
             {% endif %}
             {% endfor %}
@@ -58,13 +43,30 @@
             {% for album in recom_albums %}
             {% if album.album_genre == 'J-pop' %}
             <li>
-                <div class="recom_img">
-                    <img class="recom_img" src="{{ album.album_image }}" alt="">
-                </div>
                 <div>
-                    <h4>{{ album.album_name }}</h4>
-                    <a href="#">{{ album.album_artist }}</a>
+                    <img class="heart_icon" src="{% static '/image/heart_icon1.png' %}" alt="">
                 </div>
+                <a href="" class="recom_img_box">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                    <h4>{{ album.album_name }}</h4>
+                    <h4>{{ album.album_artist }}</h4>
+                </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <ul class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'electro' %}
+            <li>
+                <div class="recom_img_box">
+                    <img class="heart_icon" src="{% static '/image/heart_icon1.png' %}" alt="">
+                </div>
+                <a href="" class="recom_img_box">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                    <h4>{{ album.album_name }}</h4>
+                    <h4>{{ album.album_artist }}</h4>
+                </a>
             </li>
             {% endif %}
             {% endfor %}
