@@ -2,7 +2,7 @@
     overflow: hidden;
 }
 
-.recom_img {
+.recom_img > img {
     display: inline;
     width: 200px;
     margin-right: 5px;
