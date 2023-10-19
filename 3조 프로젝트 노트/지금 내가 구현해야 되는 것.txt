@@ -1,0 +1,44 @@
+지금 내가 구현해야 되는 것
+
+spotipy API를 이용하여 index에 그 결과를 띄우고 싶다.
+그럼 대체 어떻게 해야 되느냐?
+
+일단 최신 앨범들만 들고 오는 명령어를 짜보자
+
+spy_search_result = sp.search(q='year:2023 k-pop', type='album', limit=5)
+for image_re in spy_search_result['albums']['items']:
+    print(image_re['images'])
+
+이렇게 하면 이미지만 가지고 온다.
+
+크기가 300인 이미지만 출력
+
+추출 완료
+
+그럼, 이것을 어떻게 html 안에 갖다 넣을 것인가?
+
+json 형태로 저장된 리스트를 html에 갖다 넣어야 한다.
+html 안에다 for문을 돌려서 json url을 넣어보자
+그러려면 우선 json 리스트를 돌려주는 함수가 있어야만 한다.
+
+앨범 이름, 아티스트 이름, 출시 날짜 갖고 와야 한다
+
+
+DB update 정보
+1. tracks 테이블에서 album_name column 삭제
+2. play_list 테이블에서 username 외래키 삭제 후 username column을 id (BIGINT)로 변경 users_app_user id를 외래키로 지정
+3. 아래 SQL문 실행
+
+CREATE TABLE `kwd_search` (
+  `search_no` bigint NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL,
+  `album_kw` varchar(100),
+  `track_kw` varchar(100),
+  `genre_kw` varchar(100),
+  `artist_kw` varchar(100),
+  PRIMARY KEY (`search_no`, `id`)
+);
+
+ALTER TABLE `kwd_search` ADD FOREIGN KEY (`id`) REFERENCES `users_app_user` (`id`);
+
+

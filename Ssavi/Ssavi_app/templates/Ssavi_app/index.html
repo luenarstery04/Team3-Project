@@ -10,50 +10,17 @@
 <div id="indexBox">
     <article>
         <div id="album_box">
-            <table id="album_result">
-                <tr>
-                    <td>
-                        <a href="" class="album_wrap">
-                            <div class="album_image">
-                                <img src="{% static '/image/post1.jpg' %}" alt="">
-                            </div>
-                            <div class="album_info">
-                                <p class="album_title">테스트 글씨</p>
-                            </div>
-                        </a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr><th>최신음악</th></tr>
-            </table>
+            {% for info in album_info %}
+            <a href="" class="album_wrap">
+                <div class="album_image">
+                    <img src="{{ info.url }}" alt="">
+                </div>
+                <div class="album_info">
+                    <p class="album_title">{{ info.albumname }}</p>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </article>
-</div>
+</div>`
 {% endblock content %}

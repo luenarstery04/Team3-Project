@@ -1,0 +1,14 @@
+#recomBox {
+    overflow: hidden;
+}
+
+.recom_img {
+    display: inline;
+    width: 200px;
+    overflow: hidden;
+}
+
+.recom_display {
+    display: flex;
+    overflow: hidden;
+}

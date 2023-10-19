@@ -7,46 +7,38 @@
     <a href="{% url 'index' %}">최신음악</a>
     <a href="#">선호음악</a>
 </nav>
-<div id="indexBox">
+<div id="recomBox">
     <article>
-        <div id="recommend">
-            <table id="album_result">
-                <tr>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                    <td>
-                        <a href=""><img src="{% static '/image/post1.jpg' %}" alt=""></a>
-                    </td>
-                </tr>
-                <tr><th>추천음악</th></tr>
-            </table>
-        </div>
+        <ul class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'jazz' %}
+            <li>
+                <div class="recom_img">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                </div>
+                <div>
+                    <h4>{{ album.album_name }}</h4>
+                    <a href="#">{{ album.album_artist }}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <ul class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'alternative' %}
+            <li>
+                <div class="recom_img">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                </div>
+                <div>
+                    <h4>{{ album.album_name }}</h4>
+                    <a href="#">{{ album.album_artist }}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
     </article>
 </div>
 {% endblock content %}
