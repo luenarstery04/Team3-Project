@@ -2,14 +2,64 @@
     overflow: hidden;
 }
 
-.recom_img > img {
+.recom_img_box > img {
     display: inline;
+    overflow: hidden;
+}
+
+.recom_item {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.recom_img_box h4 {
+    position: absolute;
+    z-index: 2;
+}
+
+.al_name .al_artist {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.al_artist {
+    margin-top: 10px;
+}
+
+li #al_artist {
+    margin-top: 60px;
+}
+
+.recom_img {
+    position: relative;
+    z-index: 1;
     width: 200px;
     margin-right: 5px;
+    transition: all 0.2s linear;
+}
+
+.recom_img img {
+    background-color: black;
     overflow: hidden;
+}
+
+.recom_img:hover {
+    opacity: 0.7;
 }
 
 .recom_display {
     display: flex;
     overflow: hidden;
+}
+
+.recom_display li {
+    border: 1px solid black;
+}
+
+.heart_icon {
+    position: absolute;
+    z-index: 2;
+    width: 40px;
+    margin-left: 150px;
+    margin-top: 155px;
 }
