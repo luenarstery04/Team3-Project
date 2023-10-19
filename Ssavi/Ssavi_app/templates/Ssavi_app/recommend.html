@@ -39,6 +39,36 @@
             {% endif %}
             {% endfor %}
         </ul>
+        <ul class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'k-pop' %}
+            <li>
+                <div class="recom_img">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                </div>
+                <div>
+                    <h4>{{ album.album_name }}</h4>
+                    <a href="#">{{ album.album_artist }}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <ul class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'J-pop' %}
+            <li>
+                <div class="recom_img">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                </div>
+                <div>
+                    <h4>{{ album.album_name }}</h4>
+                    <a href="#">{{ album.album_artist }}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
     </article>
 </div>
 {% endblock content %}

@@ -5,6 +5,7 @@
 .recom_img {
     display: inline;
     width: 200px;
+    margin-right: 5px;
     overflow: hidden;
 }
 
