@@ -2,25 +2,67 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <nav class="menu">
     <a href="{% url 'recommend' %}">추천음악</a>
     <a href="{% url 'index' %}">최신음악</a>
     <a href="#">선호음악</a>
 </nav>
+
 <div id="indexBox">
     <article>
         <div id="album_box">
-            {% for info in album_info %}
-            <a href="" class="album_wrap">
-                <div class="album_image">
-                    <img src="{{ info.url }}" alt="">
+            <div id="album_result">
+                {% for album in albums %}
+                <div class="album">
+                    <a href="" onmouseover="displayAlbumInfo(this)">
+                        <img src="{{ album.album_image }}" alt="{{ album.album_name }}" class="album_img" onmouseover="displayAlbumInfo(this)">
+                        <div class="album_info">
+                            <p class="album_name">{{ album.album_name }}</p>
+                            <p class="artist_name">{{ album.album_artist }}</p>
+                            <p class="release_date">{{ album.album_release_date }}</p>
+                            <div class="like-button">
+                                <button onclick="likeAlbum(this)">좋아요</button>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="album_info">
-                    <p class="album_title">{{ info.albumname }}</p>
-                </div>
-            </a>
-            {% endfor %}
+                {% if forloop.counter|divisibleby:3 %}
+                <div class="clear"></div>
+                {% endif %}
+                {% endfor %}
+                <div><th>최신음악</th></div>
+            </div>
         </div>
     </article>
-</div>`
+</div>
+
+<script>
+    function displayAlbumInfo(albumElement) {
+        var albumInfo = albumElement.querySelector('.album_info');
+        albumInfo.style.display = 'block';
+      }
+    
+      function hideAlbumInfo(albumElement) {
+        var albumInfo = albumElement.querySelector('.album_info');
+        albumInfo.style.display = 'none';
+      }
+    
+      function likeAlbum(albumElement) {
+        // 좋아요 처리 로직 추가
+        alert('좋아요가 클릭되었습니다.');
+      }
+    
+      var albums = document.querySelectorAll('.album');
+    
+      albums.forEach(function(albumElement) {
+        albumElement.addEventListener('mouseover', function() {
+          displayAlbumInfo(albumElement);
+        });
+    
+        albumElement.addEventListener('mouseout', function() {
+          hideAlbumInfo(albumElement);
+        });
+      });
+  </script>
 {% endblock content %}

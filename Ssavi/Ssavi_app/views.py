@@ -10,8 +10,8 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
 def index(request):
-    album_info = get_albuminfo()
-    return render(request, 'Ssavi_app/index.html', {'album_info':album_info})
+    # album_info = get_albuminfo()
+    return render(request, 'Ssavi_app/index.html')
 
 def detail(request):
     return render(request, 'Ssavi_app/detail.html')
@@ -45,3 +45,7 @@ def get_albuminfo():
         album_infos.append(album_info)
 
     return album_infos
+
+def album_list(request):
+    albums = Albums.objects.all()[:12]
+    return render(request, 'Ssavi_app/index.html', {'albums': albums})

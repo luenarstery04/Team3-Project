@@ -1,4 +1,29 @@
 <!-- 회원가입 -->
+{% extends 'base.html' %}
 {% block content %}
-
+<body id="users">
+    <div class="login-wrapper">
+        <h2>Join</h2>
+        <form action="" method="post" id="login-form">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="ID">
+            <input type="password" name="password" placeholder="Password">
+            <input type="text" name="user_name" placeholder="Name">
+            <input type="text" name="email" placeholder="Email">
+            <label for="remember-check">Favourite genre
+                <input type="checkbox" name="genre_list" value="k-pop">K-POP
+                <input type="checkbox" name="genre_list" value="jazz">JAZZ
+                <input type="checkbox" name="genre_list" value="R&b">R&B
+                <input type="checkbox" name="genre_list" value="latin">LATIN
+                <input type="checkbox" name="genre_list" value="J-pop">J-POP
+                <input type="checkbox" name="genre_list" value="alternative">Alternative
+                <input type="checkbox" name="genre_list" value="electro">Electro
+                <input type="checkbox" name="genre_list" value="hip hop">Hip-hop
+                <input type="checkbox" name="genre_list" value="Indie Pop">Indie-POP
+                <input type="checkbox" name="genre_list" value="rock">ROCK
+            </label>
+            <input type="submit" value="Join">
+        </form>
+    </div>
+</body>
 {% endblock content %}

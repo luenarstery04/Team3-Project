@@ -9,15 +9,39 @@
 </nav>
 <div id="recomBox">
     <article>
-        <ul class="recom_display" style="list-style-type: none;">
+        <div class="recom_display" style="list-style-type: none;">
             {% for album in recom_albums %}
             {% if album.album_genre == 'jazz' %}
+            <div class="recom_item">
+                <a href="" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
+                    <div class="album_info">
+                        <p class="album_name">{{ album.album_name }}</p>
+                        <p class="artist_name">{{ album.album_artist }}</p>
+                        <p class="release_date">{{ album.album_release_date }}</p>
+                        <div class="like-button">
+                            <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <ul class="recom_display" style="list-style-type: none;">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'k-pop' %}
             <li class="recom_item">
-                <a href="" class="recom_img_box">
-                    <img class="heart_icon" src="{% static '/image/heart_icon1.png' %}" alt="">
-                    <h4 class="al_name">{{ album.album_name }}</h4>
-                    <h4 class="al_artist">{{ album.album_artist }}</h4>
-                    <img class="recom_img" src="{{ album.album_image }}" alt="">
+                <a href="" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
+                    <div class="album_info">
+                        <p class="album_name">{{ album.album_name }}</p>
+                        <p class="artist_name">{{ album.album_artist }}</p>
+                        <p class="release_date">{{ album.album_release_date }}</p>
+                        <div class="like-button">
+                            <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
+                        </div>
+                    </div>
                 </a>
             </li>
             {% endif %}
@@ -25,4 +49,33 @@
         </ul>
     </article>
 </div>
+
+<script>
+    function displayAlbumInfo(albumElement) {
+        var albumInfo = albumElement.querySelector('.album_info');
+        albumInfo.style.display = 'block';
+      }
+    
+      function hideAlbumInfo(albumElement) {
+        var albumInfo = albumElement.querySelector('.album_info');
+        albumInfo.style.display = 'none';
+      }
+    
+      function likeAlbum(albumElement) {
+        // 좋아요 처리 로직 추가
+        alert('좋아요가 클릭되었습니다.');
+      }
+    
+      var albums = document.querySelectorAll('.recom_item');
+    
+      albums.forEach(function(albumElement) {
+        albumElement.addEventListener('mouseover', function() {
+          displayAlbumInfo(albumElement);
+        });
+    
+        albumElement.addEventListener('mouseout', function() {
+          hideAlbumInfo(albumElement);
+        });
+      });
+</script>
 {% endblock content %}
