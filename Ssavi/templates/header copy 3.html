@@ -1,0 +1,39 @@
+<!-- header -->
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/header_css.css' %}">
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        const searchEngine = $(".search-engine");
+        const searchIcon = $("#searchIcon");
+        
+        searchIcon.click(function() {
+            if (searchEngine.css("display") === "none") {
+                searchEngine.css("display", "flex");
+            } else {
+                searchEngine.css("display", "none");
+            }
+        });
+    });
+</script>
+
+<div id="headerBox">
+    <div class="logo">Ssavi</div>
+    <div class="menu">
+        <span id="searchIcon">🔍</span>
+        <a href="{% url 'sign_in' %}">로그인</a>
+        <a href="{% url 'sign_up' %}">회원가입</a>
+    </div>
+</div>
+<!-- 평소 보이지 않다가 버튼 누르면 내려온다 -->
+<div class="search-engine">
+    <select class="search-condition">
+        <option value="search_if">검색조건</option>
+        <option value="album_name">앨범 이름</option>
+        <option value="track_name">곡 이름</option>
+        <option value="genre_name">장르 이름</option>
+        <option value="artist_name">아티스트 이름</option>
+    </select>
+    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+    <button class="search-button">검색</button>
+</div>

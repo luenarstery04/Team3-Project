@@ -1,4 +1,23 @@
 <!-- 회원가입 -->
+{% extends 'base.html' %} 
 {% block content %}
-
+<body>
+    <div class="login-wrapper">
+        <h2>Join</h2>
+        <form method="post" action="서버의url" id="login-form">
+            <input type="text" name="userName" placeholder="ID">
+            <input type="password" name="userPassword" placeholder="Password">
+            <input type="text" name="userName" placeholder="Name">
+            <input type="password" name="userPassword" placeholder="Email">
+            <label for="remember-check">Favourite
+                <input type="checkbox" id="remember-check">POP
+                <input type="checkbox" id="remember-check">JAZZ
+                <input type="checkbox" id="remember-check">R&B
+                <input type="checkbox" id="remember-check">LATIN
+            </label> 
+            <input type="submit" value="Join">           
+            <input type="button" onClick="location.href='../sign_in'" value="Login">           
+        </form>
+    </div>
+</body>
 {% endblock content %}

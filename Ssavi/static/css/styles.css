@@ -1,0 +1,188 @@
+/* *{
+    padding: 0;
+    margin: 0 auto;
+    border: none;
+}
+body{
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+} */
+
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+}
+
+*{
+    padding:0;
+    margin:0 auto;
+    border: none;
+}
+ul,ol{list-style:none}
+a{text-decoration:none;color:#fff;font-size:15px}
+nav{width:80%;overflow:hidden;height:80px;background-color:#1b2035;margin:50px auto}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* header {
+    background-color: #3897f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+} */
+
+#nav2>a {
+    display: block; /* a태그는 글자성격 = inline */
+    float: left;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 80px;
+    padding: 0 30px;
+  }
+  #nav2>ul {
+    float: right;
+  }
+  #nav2>ul li {
+    float: left;
+    padding: 0 30px;
+    line-height: 80px;
+  }
+
+.logo {    
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;  
+}
+.logo > img {
+    width: 50px;
+}
+
+
+.search input {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.menu a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+nav.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.menu a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.post {
+    margin: 20px;
+    max-width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.post img {
+    width: 100%;
+    height: auto;
+}
+
+.post-caption {
+    padding: 8px;
+}
+
+footer {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 12px 0;
+}
+
+.footer-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Add more styles as needed */
+
+.login-wrapper{
+    width: 400px;
+    height: 600px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.login-wrapper > h2{
+    font-size: 24px;
+    color: #6A24FE;
+    margin-bottom: 20px;
+    
+}
+#login-form > input{
+    width: 100%;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    background-color: #F8F8F8;
+}
+#login-form > input::placeholder{
+    color: #D2D2D2;
+}
+#login-form > input[type="submit"]{
+    color: #fff;
+    font-size: 16px;
+    background-color: #e35097;
+    margin-top: 20px;
+}
+#login-form > input[type="button"]{
+    color: #fff;
+    font-size: 16px;
+    background-color: #4b8dd8;
+    margin-top: 20px;
+}
+
+#login-form > input[type="checkbox"]{
+    display: none;
+}
+#login-form > label{
+    color: #999999;
+}
+#login-form input[type="checkbox"] + label{
+    cursor: pointer;
+    padding-left: 26px;
+    background-image: url("checkbox.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#login-form input[type="checkbox"]:checked + label{
+    background-image: url("checkbox-active.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
