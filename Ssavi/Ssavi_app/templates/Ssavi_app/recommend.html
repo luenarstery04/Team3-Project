@@ -14,11 +14,13 @@
 </nav>
 <div id="recomBox">
     <article>
-        <div class="recom_display" style="list-style-type: none;">
+        <div>
+            <h3>앨범 장르</h3>
+        <div class="recom_display">
             {% for album in recom_albums %}
             {% if album.album_genre == 'jazz' %}
             <div class="recom_item">
-                <a href="" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                     <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
                     <div class="album_info">
                         <p class="album_name">{{ album.album_name }}</p>
@@ -34,11 +36,16 @@
             {% endfor %}
             <hr>
         </div>
-        <div class="recom_display" style="list-style-type: none;">
+            <button class="back">＜</button>
+            <button class="next">＞</button>
+        </div>
+        <div>
+            <h3>앨범 장르</h3>
+        <div class="recom_display">
             {% for album in recom_albums %}
             {% if album.album_genre == 'k-pop' %}
             <div class="recom_item">
-                <a href="" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                     <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
                     <div class="album_info">
                         <p class="album_name">{{ album.album_name }}</p>
@@ -52,11 +59,41 @@
             </div>
             {% endif %}
             {% endfor %}
+            <hr>
+        </div>
+            <button class="back">＜</button>
+            <button class="next">＞</button>
+        </div>
+        <div>
+            <h3>앨범 장르</h3>
+        <div class="recom_display">
+            {% for album in recom_albums %}
+            {% if album.album_genre == 'rock' %}
+            <div class="recom_item">
+                <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                    <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
+                    <div class="album_info">
+                        <p class="album_name">{{ album.album_name }}</p>
+                        <p class="artist_name">{{ album.album_artist }}</p>
+                        <p class="release_date">{{ album.album_release_date }}</p>
+                        <div class="like-button">
+                            <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <hr>
+        </div>
+            <button class="back">＜</button>
+            <button class="next">＞</button>
         </div>
     </article>
 </div>
 
 <script>
+    // 앨범 위에 정보 띄우는 스크립트
     function displayAlbumInfo(albumElement) {
         var albumInfo = albumElement.querySelector('.album_info');
         albumInfo.style.display = 'block';
@@ -83,5 +120,48 @@
           hideAlbumInfo(albumElement);
         });
       });
+
+    
+    // 슬라이드쇼 관련 스크립트
+    let pages = 0;
+    let positionValue = 0;
+    const IMAGE_WIDTH = 400;
+    const backBtn = document.querySelectorAll(".back")
+    const nextBtn = document.querySelectorAll(".next")
+    const images = document.querySelectorAll(".recom_item")
+
+    // 다음으로 가는 기능
+    function next() {
+        if (pages < 2) {
+            backBtn.removeAttribute('disabled')
+            positionValue -= IMAGE_WIDTH;
+            images.style.transform = `translateX(${positionValue}px)`;
+            pages += 1;
+        }
+        if (pages === 2) {
+            nextBtn.setAttribute('disabled', 'true')
+        }
+    }
+
+    // 이전으로 가는 기능
+    function back() {
+        if (pages > 0) {
+            nextBtn.removeAttribute('disabled')
+            positionValue += IMAGE_WIDTH;
+            images.style.transform = `translateX(${positionValue}px)`;
+            pages -= 1;
+        }
+        if (pages === 0) {
+            backBtn.setAttribute('disabled', 'true')
+        }
+    }
+
+    function init() {
+        backBtn.setAttribute('disabled', 'true');
+        backBtn.addEventListener("click", back);
+        nextBtn.addEventListener("click", next);
+    };
+
+    init();
 </script>
 {% endblock content %}
