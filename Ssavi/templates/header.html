@@ -43,7 +43,7 @@
     <div class="menu">
         <span id="searchIcon">🔍</span>
         {% if user.is_authenticated %}
-        <a href="">{{ user.user_name }}님 로그인</a>
+        <a href="">{{ user.id }}님 로그인</a>
         <a href="{% url 'sign_out' %}">로그아웃</a>
         {% else %}
         <a href="{% url 'sign_in' %}">로그인</a>

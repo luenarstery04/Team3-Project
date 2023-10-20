@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Albums
+from mysqlsearcher import *
+from django.db.models import Q
 import spotipy
 from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -18,8 +20,21 @@ def detail(request):
 
 def recommend(request):
     # 현재 all을 통해 모든 테이블 내용을 출력하려 하고 있다. 비효율적이다.
-    # 특정 장르만 선택하여 값 여러 개를 돌려줄 수도 없는 노릇인데...
-    recom_albums = Albums.objects.all()
+    # 유저의 인증정보를 조회하여 id값을 보낸다.
+    # 제대로 작동하지 않는다. 고칠 게 많다.
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        user_genre_list = DBsearch.selectUserGenre(user_id)
+
+        # 받아온 장르는 ['k-pop', 'jazz'] 이렇게 리스트로 온다
+        filter_query = Q()
+        for genre in user_genre_list:
+            filter_query |= Q(album_genre__contains=genre)
+
+        recom_albums = Albums.objects.filter(filter_query)
+
+    else:
+        recom_albums = Albums.objects.all()
     return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums})
 
 def get_albuminfo():
