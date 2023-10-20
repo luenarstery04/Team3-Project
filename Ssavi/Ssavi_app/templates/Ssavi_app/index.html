@@ -4,9 +4,14 @@
 {% block content %}
 
 <nav class="menu">
-    <a href="{% url 'recommend' %}">추천음악</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'recommend' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
-    <a href="#">선호음악</a>
+    <a href="#">음악 추천 받기</a>
+    {% else %}
+    <a href="{% url 'recommend' %}">장르별 음악</a>
+    <a href="{% url 'index' %}">최신음악</a>
+    {% endif %}
 </nav>
 
 <div id="indexBox">
@@ -31,7 +36,33 @@
                 <div class="clear"></div>
                 {% endif %}
                 {% endfor %}
-                <div><th>최신음악</th></div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if albums.has_previous %}
+                            <a href="?page=1">첫 페이지</a>
+                            <a href="?page={{ albums.previous_page_number }}">이전</a>
+                        {% endif %}
+                        
+                        {% for i in albums.paginator.page_range %}
+                        {% if albums.number|add:"-5" <= i <= albums.number|add:"5" %}
+                            {% if albums.number == i %}
+                                <span class="current-page">
+                                    페이지 {{ i }} / {{ albums.paginator.num_pages }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        
+                        {% if albums.has_next %}
+                            <a href="?page={{ albums.next_page_number }}">다음</a>
+                            <a href="?page={{ albums.paginator.num_pages }}">마지막 페이지</a>
+                        {% endif %}
+                        
+                        <!-- 모든 페이지를 나열 -->
+                    </span>
+                </div>
             </div>
         </div>
     </article>
