@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Albums
+from .models import Albums, UsersAppUser
 from mysqlsearcher import *
 from django.db.models import Q
+from django.core import serializers
 import spotipy
 from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -19,23 +20,33 @@ def detail(request):
     return render(request, 'Ssavi_app/detail.html')
 
 def recommend(request):
-    # 현재 all을 통해 모든 테이블 내용을 출력하려 하고 있다. 비효율적이다.
+    # 로그인하지 않은 채 그냥 들어간다면 장르는 except로 고정된다.
     # 유저의 인증정보를 조회하여 id값을 보낸다.
-    # 제대로 작동하지 않는다. 고칠 게 많다.
+    # 
     if request.user.is_authenticated:
         user_id = request.user.id
-        user_genre_list = DBsearch.selectUserGenre(user_id)
+        # user_genre_list = DBsearch.selectUserGenre(str(user_id))
 
-        # 받아온 장르는 ['k-pop', 'jazz'] 이렇게 리스트로 온다
-        filter_query = Q()
-        for genre in user_genre_list:
-            filter_query |= Q(album_genre__contains=genre)
+        # user_id 정수를 받아오면 users_app_user에서 user_genre 검색
+        try:
+            current_login_user = UsersAppUser.objects.get(id=user_id)
+            user_genre_list = current_login_user.user_genre.split(",")
+        except UsersAppUser.DoesNotExist:
+            user_genre_list = []
 
-        recom_albums = Albums.objects.filter(filter_query)
+        # filter_query = Q()
+        # for genre in user_genre_list:
+        #     filter_query |= Q(album_genre__contains=genre)
+
+        # recom_albums = Albums.objects.filter(filter_query)
+        recom_albums = Albums.objects.all()
+
+        return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
     else:
+        user_genre_list = ['jazz', 'latin', 'alternative', 'R&b']
         recom_albums = Albums.objects.all()
-    return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums})
+    return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
 def get_albuminfo():
     search_result = sp.new_releases(country='KR', limit=9)

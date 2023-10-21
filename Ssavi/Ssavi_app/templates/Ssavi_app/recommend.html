@@ -14,11 +14,13 @@
 </nav>
 <div id="recomBox">
     <article>
+        {% if user_genre_list %}
+        {% for user_genre in user_genre_list %}
         <div>
-            <h3>재즈</h3>
+            <h3>{{ user_genre|upper }}</h3>
         <div class="recom_display">
             {% for album in recom_albums %}
-            {% if album.album_genre == 'jazz' %}
+            {% if album.album_genre == user_genre %}
             <div class="recom_item">
                 <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                     <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
@@ -39,134 +41,15 @@
             <button class="back">＜</button>
             <button class="next">＞</button>
         </div>
+        {% endfor %}
+        {% else %}
         <div>
-            <h3>K-POP</h3>
-        <div class="recom_display">
-            {% for album in recom_albums %}
-            {% if album.album_genre == 'k-pop' %}
-            <div class="recom_item">
-                <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
-                    <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
-                    <div class="album_info">
-                        <p class="album_name">{{ album.album_name }}</p>
-                        <p class="artist_name">{{ album.album_artist }}</p>
-                        <p class="release_date">{{ album.album_release_date }}</p>
-                        <div class="like-button">
-                            <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endif %}
-            {% endfor %}
-            <hr>
+            <h1>아직 선택하신 장르가 없습니다!</h1>
         </div>
-            <button class="back">＜</button>
-            <button class="next">＞</button>
-        </div>
-        <div>
-            <h3>앨범 장르</h3>
-        <div class="recom_display">
-            {% for album in recom_albums %}
-            {% if album.album_genre == 'rock' %}
-            <div class="recom_item">
-                <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
-                    <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
-                    <div class="album_info">
-                        <p class="album_name">{{ album.album_name }}</p>
-                        <p class="artist_name">{{ album.album_artist }}</p>
-                        <p class="release_date">{{ album.album_release_date }}</p>
-                        <div class="like-button">
-                            <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endif %}
-            {% endfor %}
-            <hr>
-        </div>
-            <button class="back">＜</button>
-            <button class="next">＞</button>
-        </div>
+        {% endif %}
     </article>
 </div>
 
-<script>
-    // 앨범 위에 정보 띄우는 스크립트
-    function displayAlbumInfo(albumElement) {
-        var albumInfo = albumElement.querySelector('.album_info');
-        albumInfo.style.display = 'block';
-      }
-    
-      function hideAlbumInfo(albumElement) {
-        var albumInfo = albumElement.querySelector('.album_info');
-        albumInfo.style.display = 'none';
-      }
-    
-      function likeAlbum(albumElement) {
-        // 좋아요 처리 로직 추가
-        alert('좋아요가 클릭되었습니다.');
-      }
-    
-      var albums = document.querySelectorAll('.recom_item');
-    
-      albums.forEach(function(albumElement) {
-        albumElement.addEventListener('mouseover', function() {
-          displayAlbumInfo(albumElement);
-        });
-    
-        albumElement.addEventListener('mouseout', function() {
-          hideAlbumInfo(albumElement);
-        });
-      });
-
-    
-    // 슬라이드쇼 관련 스크립트
-    let pages = 0;
-    let positionValue = 0;
-    const IMAGE_WIDTH = 200;
-    const backBtn = document.querySelectorAll(".back")
-    const nextBtn = document.querySelectorAll(".next")
-    const images = document.querySelectorAll(".recom_item")
-    console.log(images.length)
-
-    // 다음으로 가는 기능
-    function next() {
-        if (pages < 5) {
-            backBtn.forEach(btn => btn.removeAttribute('disabled'));
-            for (let i = 0; i < images.length; i++) {
-                images[i].style.transform = `translateX(${positionValue}px)`;
-            }
-            positionValue -= IMAGE_WIDTH;
-            pages += 1;
-            if (pages === 5) {
-                nextBtn.forEach(btn => btn.setAttribute('disabled', 'true'));
-            }
-        }
-    };
-
-    // 이전으로 가는 기능
-    function back() {
-        if (pages > 0) {
-            nextBtn.forEach(btn => btn.removeAttribute('disabled'));
-            for (let i = 0; i < images.length; i++) {
-                images[i].style.transform = `translateX(${positionValue}px)`;
-            }
-            positionValue += IMAGE_WIDTH;
-            pages -= 1;
-            if (pages === 0) {
-                backBtn.forEach(btn => btn.setAttribute('disabled', 'true'));
-            }
-        }
-    };
-
-    function init() {
-        backBtn.forEach(btn => btn.setAttribute('disabled', 'true'));
-        backBtn.forEach(btn => btn.addEventListener("click", back));
-        nextBtn.forEach(btn => btn.addEventListener("click", next));
-    };
-
-    init();
-</script>
+<script src="{% static '/js/recommend.js' %}"></script>
+<script src="{% static '/js/test' %}"></script>
 {% endblock content %}
