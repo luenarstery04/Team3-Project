@@ -3,6 +3,8 @@
 {% load static %}
 {% block content %}
 
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<link rel="stylesheet" href="{% static '/css/index.css' %}">
 <nav class="menu">
     {% if user.is_authenticated %}
     <a href="{% url 'genre_albums' %}">장르별 음악</a>

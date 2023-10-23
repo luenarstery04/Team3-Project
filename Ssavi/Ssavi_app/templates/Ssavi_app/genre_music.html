@@ -21,6 +21,7 @@
                 {% for album in recom_albums %}
                 {% if album.album_genre == user_genre %}
                 <div class="recom_item">
+                    <p class="album_id">{{ album.album_id }}</p>
                     <a href="#" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                         <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
                         <div class="album_info">

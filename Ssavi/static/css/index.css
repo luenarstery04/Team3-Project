@@ -58,8 +58,8 @@ nav.menu a {
     margin-top: 20px;
 
   }
-  .like-button button {
-    background: #3498db;
+  
+  #heart-icon {
     position: absolute;
     width: 30px;
     height: 30px;
