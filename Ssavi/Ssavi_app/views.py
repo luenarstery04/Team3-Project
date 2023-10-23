@@ -13,8 +13,8 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
 def index(request):
-    # album_info = get_albuminfo()
-    return render(request, 'Ssavi_app/index.html')
+    albums = Albums.objects.all()[:12]
+    return render(request, 'Ssavi_app/index.html', {'albums': albums})
 
 def recommend(request):
     # 로그인하지 않은 채 그냥 들어간다면 장르는 except로 고정된다.
@@ -72,9 +72,6 @@ def get_albuminfo():
 
     return album_infos
 
-def album_list(request):
-    albums = Albums.objects.all()[:12]
-    return render(request, 'Ssavi_app/index.html', {'albums': albums})
 
 def detail(request, ab_id):
     album = get_object_or_404(Albums, pk=ab_id)

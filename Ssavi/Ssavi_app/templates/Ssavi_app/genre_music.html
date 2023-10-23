@@ -2,14 +2,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'css/recommend.css' %}">
-
-
 
 {% if user.is_authenticated %}
 <nav class="menu">
-    <a href="{% url 'recommend' %}">장르별 음악</a>
+    <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
     <a href="#">음악 추천 받기</a>
 </nav>
@@ -24,7 +21,7 @@
                 {% for album in recom_albums %}
                 {% if album.album_genre == user_genre %}
                 <div class="recom_item">
-                    <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                    <a href="#" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                         <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
                         <div class="album_info">
                             <p class="album_name">{{ album.album_name }}</p>
@@ -53,7 +50,7 @@
 </div>
     {% else %}
 <nav class="menu">
-    <a href="{% url 'recommend' %}">장르별 음악</a>
+    <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
 </nav>
 <div id="recomBox">
@@ -67,7 +64,7 @@
                 {% for album in recom_albums %}
                 {% if album.album_genre == user_genre %}
                 <div class="recom_item">
-                    <a href="{% url 'detail' %}" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
+                    <a href="#" class="recom_img_box" onmouseover="displayAlbumInfo(this)">
                         <img class="recom_img" src="{{ album.album_image }}" alt="" onmouseover="displayAlbumInfo(this)">
                         <div class="album_info">
                             <p class="album_name">{{ album.album_name }}</p>
