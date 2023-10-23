@@ -17,7 +17,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
 def index(request):
-    albums = Albums.objects.all()[:12]
+    albums = Albums.objects.all()
     return render(request, 'Ssavi_app/index.html', {'albums': albums})
 
 def recommend(request):
