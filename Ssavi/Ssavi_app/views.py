@@ -30,7 +30,10 @@ def recommend(request):
         # user_id 정수를 받아오면 users_app_user에서 user_genre 검색
         try:
             current_login_user = UsersAppUser.objects.get(id=user_id)
-            user_genre_list = current_login_user.user_genre.split(",")
+            if current_login_user.user_genre is None:
+                user_genre_list = []
+            else:
+                user_genre_list = current_login_user.user_genre.split(",")
         except UsersAppUser.DoesNotExist:
             user_genre_list = []
 
@@ -41,12 +44,12 @@ def recommend(request):
         # recom_albums = Albums.objects.filter(filter_query)
         recom_albums = Albums.objects.all()
 
-        return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
+        return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
     else:
-        user_genre_list = ['jazz', 'latin', 'alternative', 'R&b']
+        user_genre_list = ['jazz', 'k-pop', 'J-pop', 'R&b']
         recom_albums = Albums.objects.all()
-    return render(request, 'Ssavi_app/recommend.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
+    return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
 def get_albuminfo():
     search_result = sp.new_releases(country='KR', limit=9)

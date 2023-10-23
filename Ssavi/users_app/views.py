@@ -1,7 +1,9 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import JsonResponse
 from django.contrib.auth import login, logout
-from .models import User
+from .models import User, UsersAppUser
 from .forms import UserForm
 
 # Create your views here.
@@ -43,3 +45,19 @@ def sign_up(request):
         form = UserForm()
 
     return render(request, 'users_app/sign_up.html', {'form':form})
+
+# 작성하다 만 아이디 체크
+def id_check(request):
+    if request.method == 'POST':
+        try:
+            username = request.POST.get('username', None)
+            if username:
+                if UsersAppUser.objects.filter(username=username).exists():
+                    return JsonResponse({'is_taken':True})
+                else:
+                    return JsonResponse({'is_taken':False})
+        except IntegrityError:
+            return redirect('sign_up')
+
+    else:
+        return JsonResponse({'error':'올바르지 않은 형식입니다'})
