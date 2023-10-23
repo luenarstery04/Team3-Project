@@ -48,7 +48,7 @@
     display: none;
 }
 #login-form > label{
-    color: #999999;
+    color: #c03b8b;
 }
 #login-form input[type="checkbox"] + label{
     cursor: pointer;

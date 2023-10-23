@@ -4,19 +4,28 @@
 <body>
     <div class="login-wrapper">
         <h2>Join</h2>
-        <form method="post" action="서버의url" id="login-form">
-            <input type="text" name="userName" placeholder="ID">
+        <form method="post" action="#" id="login-form">
+            <input type="text" name="id" id="id" placeholder="ID">
             <input type="password" name="userPassword" placeholder="Password">
-            <input type="text" name="userName" placeholder="Name">
-            <input type="password" name="userPassword" placeholder="Email">
-            <label for="remember-check">Favourite
-                <input type="checkbox" id="remember-check">POP
-                <input type="checkbox" id="remember-check">JAZZ
-                <input type="checkbox" id="remember-check">R&B
-                <input type="checkbox" id="remember-check">LATIN
+            <input type="passwordCheck" name="passwordCheck" id="passwordCheck" placeholder="Password Confirm">
+            <input type="text" name="name" id="name" placeholder="Name">
+            <input type="email" name="email" id="email" placeholder="Email">
+            <label for="remember-check">Favourite<br>
+                
+                <!-- <input type="checkbox" id="remember-check"> POP -->
+                <input type="checkbox" id="remember-check"> K-POP
+                <input type="checkbox" id="remember-check"> J-POP
+                <input type="checkbox" id="remember-check"> HIPHOP<br>               
+                <input type="checkbox" id="remember-check"> R&B
+                <input type="checkbox" id="remember-check"> JAZZ
+                <input type="checkbox" id="remember-check"> LATIN<br>
+                <input type="checkbox" id="remember-check"> ROCK
+                <input type="checkbox" id="remember-check"> ELECTRO
+                <input type="checkbox" id="remember-check"> INDIE POP                
+                
             </label> 
             <input type="submit" value="Join">           
-            <input type="button" onClick="location.href='../sign_in'" value="Login">           
+            <!-- <input type="button" onClick="location.href='../sign_in'" value="Login">            -->
         </form>
     </div>
 </body>
