@@ -1,18 +1,19 @@
-from django.db.models import Avg
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import *
+from mysqlsearcher import *
+from django.db.models import Q, Avg
+from django.core import serializers
 import spotipy
+from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
+import json
 
-from .models import UsersAppUser
-
-from .models import Albums, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
-
-client_credentials_manager = SpotifyClientCredentials(client_id='c0ef6b3167de4affb312e7fc7366abb4', client_secret='86babd771d3c4098b90fc70ed221cd60')
+client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csecret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
 def index(request):
+    # album_info = get_albuminfo()
     return render(request, 'Ssavi_app/index.html')
 
 def recommend(request):
@@ -300,7 +301,3 @@ def analysis(request, song_id):
     }
 
     return render(request, 'Ssavi_app/analysis.html', context)
-
-
-def recommend(request):
-    return render(request, 'Ssavi_app/recommend.html')
