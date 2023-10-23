@@ -13,7 +13,7 @@
             <table>
                 <tr>
                     <th>No.</th>
-                    <th>곡 정보</th>
+                    <th>앨범 정보</th>
                 </tr>
             </table>
         </div>
@@ -23,7 +23,11 @@
             <p class="la_image">{{LA.album.album_image}}</p>
             <p class="la_name">{{LA.album.album_name}}</p>
             <p class="la_artist">{{LA.album.album_artist}}</p>
-            
+            <div class="del_like_btn">
+                <!-- 좋아요 해제 버튼 이미지로 만들어야함 -->
+                <button>좋아요</button>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

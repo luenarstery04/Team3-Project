@@ -8,6 +8,27 @@
         <a href="{% url 'liked_track' %}">좋아요한 트랙</a>
         <a href="{% url 'myInfo' %}">회원정보</a>
     </nav>
-    <div></div>
+    <div id="liked_track_box">
+        <div id="header">
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>곡 정보</th>
+                </tr>
+            </table>
+        </div>
+        <div id="liked_track">
+            {% for LT in liked_tracks %}
+            <p class="lt_no">{{LT.lt_no}}</p>
+            <p class="lt_image">{{LT.track.album.album_image}}</p>
+            <p class="lt_name">{{LT.track.track_name}}</p>
+            <p class="lt_artist">{{LT.track.album.album_artist}}</p>
+            <div class="del_like_btn">
+                <!-- 좋아요 해제 버튼 이미지로 만들어야함 -->
+                <button>좋아요</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock content %}

@@ -85,7 +85,8 @@ def liked_album(request):
     return render(request, 'Ssavi_app/liked_album.html',{'liked_albums':liked_albums})
 
 def liked_track(request):
-    return render(request, 'Ssavi_app/liked_track.html')
+    liked_tracks = LikedTrack.objects.all()
+    return render(request, 'Ssavi_app/liked_track.html',{'liked_tracks':liked_tracks})
 
 def myInfo(request):
     return render(request, 'Ssavi_app/myInfo.html')
