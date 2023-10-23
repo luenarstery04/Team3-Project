@@ -52,3 +52,12 @@ ALTER TABLE `Play_list` ADD FOREIGN KEY (`track_id`) REFERENCES `Tracks` (`track
 ALTER TABLE `Play_list` ADD FOREIGN KEY (`username`) REFERENCES `users_app_user` (`username`);
 
 ALTER TABLE `audio_features` ADD FOREIGN KEY (`track_id`) REFERENCES `Tracks` (`track_id`);
+
+CREATE TABLE Liked_Track (
+    LT_no int primary key not null,
+    track_id varchar(50) NOT NULL,
+    id bigint
+);
+
+ALTER TABLE Liked_Track ADD FOREIGN KEY (track_id) REFERENCES Tracks (track_id);
+ALTER TABLE Liked_Track ADD FOREIGN KEY (id) REFERENCES users_app_user (id);
