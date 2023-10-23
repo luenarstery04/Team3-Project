@@ -1,0 +1,170 @@
+#analysis {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.current-track {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.current-track h1 {
+    font-size: 36px;
+    position: relative;
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.current-track h1::after {
+    content: '';
+    display: block;
+    height: 20px;
+}
+
+.current-track img {
+    max-width: 80%;
+}
+
+.current_album_image {
+    width: 70%;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.current_album_image img {
+    margin-top: 40px;
+}
+
+.current_list {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.current_list button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.3s; /* 투명도 변화를 부드럽게 만들기 위한 트랜지션 설정 */
+}
+
+.current_list button img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.current_list button:hover {
+    opacity: 0.5;
+}
+
+.current_preview audio{
+    width: 50%;
+}
+
+#audio_feature ul p{
+    font-size: 20px;
+    margin-right: 20px;
+    text-align: left;
+}
+
+#audio_feature ul p span{
+    color: red;
+}
+
+/* 추천 음악 구성 */
+.recommendations {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.recommendations h1 {
+    font-size: 36px;
+    position: relative;
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.recommendations h1::after {
+    content: '';
+    display: block;
+    height: 20px;
+}
+
+.recommendation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+
+.recommendation-info {
+    width: 40%;
+    margin-left: 15%;
+}
+
+.recommendation_album_image img {
+    width: 70%;
+    border: 1px solid black;
+}
+
+.recommendation_list {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.recommendations button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.3s; /* 투명도 변화를 부드럽게 만들기 위한 트랜지션 설정 */
+}
+
+.recommendations button img {
+    width: 25px;
+    height: 25px;
+}
+
+.recommendations button:hover {
+    opacity: 0.5;
+}
+
+.recommendation_preview audio{
+    width: 100%;
+}
+
+.recommendation_graph {
+    width: 55%;
+    margin-right: 15%;
+}
+
+.recommendation_graph img {
+    width: 100%;
+}
+
+/* 화면 너비가 작을 때 세로로 정렬 */
+@media (max-width: 768px) {
+    #analysis {
+        flex-direction: column;
+    }
+
+    .current-track, .recommendations {
+        width: 100%;
+    }
+}
