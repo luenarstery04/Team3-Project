@@ -1,3 +1,26 @@
+.menu a {
+    
+    margin-left: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+nav.menu {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.menu a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+
 #recomBox {
     width: 1240px;
     margin: 0 auto;

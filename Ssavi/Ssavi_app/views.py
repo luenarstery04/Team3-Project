@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from mysqlsearcher import *
 from django.db.models import Q, Avg
+from django.template.loader import render_to_string
 from django.core import serializers
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 import spotipy
 from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -298,3 +302,20 @@ def analysis(request, song_id):
     }
 
     return render(request, 'Ssavi_app/analysis.html', context)
+
+def album_list(request):
+    page = int(request.GET.get('page', 1))
+    albums_per_page = 15 # 페이지당 앨범 수
+    albums = Albums.objects.all()
+    paginator = Paginator(albums, albums_per_page)
+    page_albums = paginator.get_page(page)
+    return render(request, 'Ssavi_app/index.html', {'albums': page_albums})
+
+
+def music_recommend(request):
+    tracks = Tracks.objects.all()
+
+    context = {
+        'tracks': tracks,
+    }
+    return render(request, 'Ssavi_app/music_recommend.html', context)

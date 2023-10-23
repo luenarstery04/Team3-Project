@@ -4,8 +4,10 @@
 {% block content %}
 <nav class="menu">
     <a href="{% url 'recommend' %}">장르별 음악</a>
-    <a href="{% url 'index' %}">최신 음악</a>
-    <a href="#">음악 추천 받기</a>
+    <a href="{% url 'index' %}">최신음악</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'music_recommend' %}">음악 추천 받기</a>
+    {% endif %}
 </nav>
 {% comment %} 멜론 보면서 css 살짝식 수정, 그림 이미지 꽉 채우고, 옆에 좋아요 버튼도 추가. 밑에 수록곡 부분 색감 수정, 간격 수정{% endcomment %}
 <div id="detailBox">
