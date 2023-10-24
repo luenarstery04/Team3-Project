@@ -320,3 +320,51 @@ def music_recommend(request):
         'tracks': tracks,
     }
     return render(request, 'Ssavi_app/music_recommend.html', context)
+
+def like_track(request):
+    if request.method == 'POST':
+        track_id = request.POST.get('track_id')
+        id = request.POST.get('id')
+      
+        try:
+            track_id = Tracks.objects.get(track_id=track_id)
+            id = UsersAppUser.objects.get(id=id)
+            
+
+            liked_track, created = LikedTrack.objects.get_or_create(track=track_id, id=id)
+
+            if created:
+                message = "트랙 따봉"
+            else:
+                liked_track.delete()
+                message = "트랙 따봉 해제"
+
+            return JsonResponse({'message': message})
+        except UsersAppUser.DoesNotExist:
+            return JsonResponse({'error': '사용자가 존재하지 않습니다.'}, status=404)
+        except Tracks.DoesNotExist:
+            return JsonResponse({'error': '트랙이 존재하지 않습니다.'}, status=404)
+
+def like_album(request):
+    if request.method == 'POST':
+        album_id = request.POST.get('album_id')
+        id = request.POST.get('id')
+      
+        try:
+            id = UsersAppUser.objects.get(id=id)
+            album_id = Albums.objects.get(album_id=album_id)
+
+            liked_album, created = LikedAlbum.objects.get_or_create(album=album_id, id=id)
+
+            if created:
+                message = "앨범 좋아요"
+            else:
+                liked_album.delete()
+                message = "앨범 좋아요 해제"
+
+            return JsonResponse({'message': message})
+        except UsersAppUser.DoesNotExist:
+            return JsonResponse({'error': '사용자가 존재하지 않습니다.'}, status=404)
+        except Albums.DoesNotExist:
+            return JsonResponse({'error': '트랙이 존재하지 않습니다.'}, status=404)
+        

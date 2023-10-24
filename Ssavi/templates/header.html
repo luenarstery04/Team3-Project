@@ -2,38 +2,6 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/header_css.css' %}">
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
-<script>
-    $(document).ready(function() {
-        const searchEngine = $(".search-engine");
-        const searchIcon = $("#searchIcon");
-        
-        searchIcon.click(function() {
-            if (searchEngine.css("display") === "none") {
-                searchEngine.css("display", "flex");
-            } else {
-                searchEngine.css("display", "none");
-            }
-        });
-    });
-</script>
-
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/header_css.css' %}">
-<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
-<script>
-    $(document).ready(function() {
-        const searchEngine = $(".search-engine");
-        const searchIcon = $("#searchIcon");
-        
-        searchIcon.click(function() {
-            if (searchEngine.css("display") === "none") {
-                searchEngine.css("display", "flex");
-            } else {
-                searchEngine.css("display", "none");
-            }
-        });
-    });
-</script>
 
 <div id="headerBox">
     <div class="logo">
@@ -64,3 +32,18 @@
     <input type="text" class="search-input" placeholder="검색어를 입력하세요">
     <button class="search-button">검색</button>
 </div>
+
+<script>
+    $(document).ready(function() {
+        const searchEngine = $(".search-engine");
+        const searchIcon = $("#searchIcon");
+        
+        searchIcon.click(function() {
+            if (searchEngine.css("display") === "none") {
+                searchEngine.css("display", "flex");
+            } else {
+                searchEngine.css("display", "none");
+            }
+        });
+    });
+</script>
