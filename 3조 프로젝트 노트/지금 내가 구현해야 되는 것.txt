@@ -156,3 +156,12 @@ songs_data라는 빈 리스트를 하나 만든다.
 임의로 views에 추가할 논리구조를 짜보자.
 
 def user_
+
+
+=====================================
+
+장르별 트랙 뽑을 건데, 준영님께서 jpop kpop latin r&b rock
+
+나는 나머지 5개의 track 정보를 뽑는다.
+
+Sweet Love	Anita Baker 미리듣기 정보 없음. 칼럼 제거 필요

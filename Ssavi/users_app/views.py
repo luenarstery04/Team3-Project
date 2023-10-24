@@ -81,7 +81,7 @@ def user_update(request):
         user.save()
         messages.success(request, '회원정보 수정이 완료되었습니다.')
 
-        return redirect('index')
+        return redirect('sign_in')
     else:
         return render(request, 'users_app/user_update.html')
     

@@ -34,11 +34,12 @@ nav.menu a {
     float: left;
     margin: 10px;
     width: 200px; /* 앨범 카드의 너비를 조절하세요 */
+    height: 200px;
   }
 
   .album_img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 200px;
   }
 
   .album_info {
@@ -50,8 +51,15 @@ nav.menu a {
     bottom: 0;
     width: 100%; /* 이미지와 동일한 너비 */
     height: 100%; /* 이미지와 동일한 높이 */
+    filter: blur(3px) grayscale(100%);
+    transition: 1.5s ease;
+    opacity: 0;
+  }
 
-
+  .album_info:hover {
+    filter: blur(0) grayscale(0);
+    transition: opacity 0.7s ease;
+    opacity: 1;
   }
 
   .album_info p{

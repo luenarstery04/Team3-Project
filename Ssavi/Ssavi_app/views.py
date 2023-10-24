@@ -48,7 +48,7 @@ def recommend(request):
         return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
     else:
-        user_genre_list = ['jazz', 'k-pop', 'J-pop', 'R&b']
+        user_genre_list = ['jazz', 'k-pop', 'J-pop', 'R&B']
         recom_albums = Albums.objects.all()
     return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
@@ -80,9 +80,9 @@ def get_albuminfo():
 def detail(request, ab_id):
     album = get_object_or_404(Albums, pk=ab_id)
     songs = sp.album_tracks(album_id=ab_id)['items']
-    songs_data = [] # 앨범 안의 노래들의 정보를 담을 리스트
+    songs_data = []  # 앨범 안의 노래들의 정보를 담을 리스트
 
-    for s in range(0, len(songs[0])):
+    for s in range(0, len(songs)):
         song = {}  # 각 노래의 정보를 저장할 딕셔너리 생성
         song['song_id'] = songs[s]['id']
         song['song_name'] = songs[s]['name']
@@ -92,12 +92,12 @@ def detail(request, ab_id):
 
     # 장르가 문자열로 되어있기 때문에 문자 제외한 부분 제거하고 리스트로 저장.
     genres = album.album_genre.strip('[]').replace("'", "").split(', ')
-
+    
     # 앨범 데이터와 노래 데이터, 장르 반환
     context = {
         'album': album,
         'songs_data': songs_data,
-        'genres' : genres
+        'genres': genres,
     }
 
     return render(request, 'Ssavi_app/detail.html', context)
