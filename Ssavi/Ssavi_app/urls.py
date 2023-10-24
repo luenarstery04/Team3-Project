@@ -7,4 +7,6 @@ urlpatterns = [
     path('recommend/', views.recommend, name='recommend'),
     
     path('music_recommend/', views.music_recommend, name='music_recommend'),
+    path('like_track/', views.like_track, name='like_track'),
+
 ]
