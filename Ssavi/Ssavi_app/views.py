@@ -68,13 +68,14 @@ def recommend(request):
             if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
                 likealbum.append(i.album_id)
 
-        context = {
-            'albums': recom_albums,
-            'likealbum' : likealbum
-        }
+    context = {
+        'albums': recom_albums,
+        'likealbum' : likealbum
+    }
 
-        
         # user_genre_list = DBsearch.selectUserGenre(str(user_id))
+    if request.user.is_authenticated:
+        user_id = request.user.id
 
         # user_id 정수를 받아오면 users_app_user에서 user_genre 검색
         try:
@@ -90,7 +91,7 @@ def recommend(request):
 
     else:
         user_genre_list = ['jazz', 'k-pop', 'J-pop', 'R&B']
-    return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
+    return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list, 'context':context})
 
 def get_albuminfo():
     search_result = sp.new_releases(country='KR', limit=9)
