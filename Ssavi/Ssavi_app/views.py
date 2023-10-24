@@ -40,7 +40,6 @@ def music_recommend(request):
         'liketrack' : liketrack
     }
 
-    print(liketrack)
     return render(request, 'Ssavi_app/music_recommend.html', context)
 
 def recommend(request):
