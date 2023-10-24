@@ -16,7 +16,7 @@ from .models import UsersAppUser
 
 # from .models import Albums, LikedAlbum, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
 
-client_credentials_manager = SpotifyClientCredentials(client_id='c0ef6b3167de4affb312e7fc7366abb4', client_secret='86babd771d3c4098b90fc70ed221cd60')
+client_credentials_manager = SpotifyClientCredentials(client_id='d95055726cab4d388a7eca1c84f4d7f9', client_secret='e7879ea497be4485b92964f9d6a2f1be')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
