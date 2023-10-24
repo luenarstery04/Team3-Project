@@ -19,7 +19,7 @@ CREATE TABLE `Tracks` (
 );
 
 CREATE TABLE `Liked_Album` (
-  `LA_id` integer PRIMARY KEY NOT NULL,
+  `LA_id` integer PRIMARY KEY NOT NULL auto_increment,
   `id` bigint NOT NULL,
   `album_id` varchar(50) NOT NULL
 );
@@ -54,7 +54,7 @@ ALTER TABLE `Play_list` ADD FOREIGN KEY (`username`) REFERENCES `users_app_user`
 ALTER TABLE `audio_features` ADD FOREIGN KEY (`track_id`) REFERENCES `Tracks` (`track_id`);
 
 CREATE TABLE Liked_Track (
-    LT_no int primary key not null,
+    LT_no int primary key not null auto_increment,
     track_id varchar(50) NOT NULL,
     id bigint
 );
