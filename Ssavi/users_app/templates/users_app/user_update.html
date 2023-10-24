@@ -5,10 +5,49 @@
 <div id="users">
     <div class="login-wrapper">
         <h2>회원정보 수정</h2>
-        <form action="" method="post">
-            
+        <form action="" method="post" id="login-form">
+            {% csrf_token %}
+            <input type="text" name="user_name" placeholder="별명" required>
+            <input type="text" name="email" placeholder="이메일" required>
+            <input type="password" name="new_password" placeholder="새 비밀번호" required>
+            <label for="remember-check">선호 장르
+                <table id="genre_checkbox">
+                    <tr>
+                        <td><label><input type="checkbox" name="genre_list" value="k-pop">K-POP</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="jazz">JAZZ</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="R&b">R&B</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="genre_list" value="latin">LATIN</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="J-pop">J-POP</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="alternative">Alternative</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="genre_list" value="electro">Electro</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="hip hop">Hip-hop</label></td>
+                        <td><label><input type="checkbox" name="genre_list" value="Indie Pop">Indie-POP</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="genre_list" value="rock">ROCK</label></td>
+                        <td><label></label></td>
+                        <td><label></label></td>
+                    </tr>
+                </table>
+            </label>
+            <button id="joinBtn" type="submit" value="Join">수정하기</button>
         </form>
     </div>
 </div>
-<script></script>
+<script>
+$(document).ready(function() {
+    // 장르 2개 이상 선택
+    $('#login-form').submit(function(event) {
+        let selected_genres = $('input[name="genre_list"]:checked').length;
+        if (selected_genres < 2) {
+            alert('최소 2개 이상의 장르를 선택해주십시오.');
+            event.preventDefault();
+        }
+    });
+});
+</script>
 {% endblock content %}
