@@ -30,7 +30,7 @@
                     "error"
                 </audio>
                 <div class="like-button">
-                    <img id="heart-icon" onclick="likeAlbum(this, '{{ track.track_id }}')" data-track-id="{{ track.track_id }}" src="{% static '/image/Thumbs_up.png' %}" alt="Liked">
+                    <img id="thumb-icon" onclick="likeAlbum(this, '{{ track.track_id }}')" data-track-id="{{ track.track_id }}" src="{% static '/image/Thumbs_up.png' %}" alt="Liked">
                 </div>
             </li>
             {% endfor %}

@@ -59,9 +59,21 @@ def music_recommend(request):
 def recommend(request):
     # 로그인하지 않은 채 그냥 들어간다면 장르는 except로 고정된다.
     # 유저의 인증정보를 조회하여 id값을 보낸다.
-    # 
+    recom_albums = Albums.objects.all()
+    likealbum = []
+
     if request.user.is_authenticated:
         user_id = request.user.id
+        for i in recom_albums:
+            if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
+                likealbum.append(i.album_id)
+
+        context = {
+            'albums': recom_albums,
+            'likealbum' : likealbum
+        }
+
+        
         # user_genre_list = DBsearch.selectUserGenre(str(user_id))
 
         # user_id 정수를 받아오면 users_app_user에서 user_genre 검색
@@ -74,18 +86,10 @@ def recommend(request):
         except UsersAppUser.DoesNotExist:
             user_genre_list = []
 
-        # filter_query = Q()
-        # for genre in user_genre_list:
-        #     filter_query |= Q(album_genre__contains=genre)
-
-        # recom_albums = Albums.objects.filter(filter_query)
-        recom_albums = Albums.objects.all()
-
-        return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
+        return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list, 'context':context})
 
     else:
         user_genre_list = ['jazz', 'k-pop', 'J-pop', 'R&B']
-        recom_albums = Albums.objects.all()
     return render(request, 'Ssavi_app/genre_music.html', {'recom_albums':recom_albums, 'user_genre_list':user_genre_list})
 
 def get_albuminfo():

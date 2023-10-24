@@ -1,29 +1,28 @@
 // 앨범 위에 정보 띄우는 스크립트
 function displayAlbumInfo(albumElement) {
     var albumInfo = albumElement.querySelector('.album_info');
-    albumInfo.style.display = 'block';
+    if (albumInfo) {
+        albumInfo.style.display = 'block';
     }
+}
 
-    function hideAlbumInfo(albumElement) {
+function hideAlbumInfo(albumElement) {
     var albumInfo = albumElement.querySelector('.album_info');
-    albumInfo.style.display = 'none';
+    if (albumInfo) {
+        albumInfo.style.display = 'none';
     }
-
-    function likeAlbum(albumElement) {
-    // 좋아요 처리 로직 추가
-    alert('좋아요가 클릭되었습니다.');
-    }
+}
 
     var albums = document.querySelectorAll('.recom_item');
 
     albums.forEach(function(albumElement) {
-    albumElement.addEventListener('mouseover', function() {
-        displayAlbumInfo(albumElement);
-    });
+        albumElement.addEventListener('mouseover', function() {
+            displayAlbumInfo(albumElement);
+        });
 
-    albumElement.addEventListener('mouseout', function() {
-        hideAlbumInfo(albumElement);
-    });
+        albumElement.addEventListener('mouseout', function() {
+            hideAlbumInfo(albumElement);
+        });
     });
 
 
