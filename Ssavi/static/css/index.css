@@ -1,5 +1,4 @@
 .menu a {
-    
     margin-left: 20px;
     text-decoration: none;
     color: #fff;
@@ -7,7 +6,7 @@
 }
 
 nav.menu {
-    margin: 20px 0;
+    margin: 20px 0 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +24,7 @@ nav.menu a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 130%; /* 화면 전체 높이를 차지하도록 설정 (선택적) */
+    height: 100%; /* 화면 전체 높이를 차지하도록 설정 (선택적) */
     border: 1px solid black;
 }
 
@@ -35,11 +34,12 @@ nav.menu a {
     float: left;
     margin: 10px;
     width: 200px; /* 앨범 카드의 너비를 조절하세요 */
+    height: 200px;
   }
 
   .album_img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 200px;
   }
 
   .album_info {
@@ -51,13 +51,22 @@ nav.menu a {
     bottom: 0;
     width: 100%; /* 이미지와 동일한 너비 */
     height: 100%; /* 이미지와 동일한 높이 */
+    filter: blur(3px) grayscale(100%);
+    transition: 1.5s ease;
+    opacity: 0;
+  }
+
+  .album_info:hover {
+    filter: blur(0) grayscale(0);
+    transition: opacity 0.7s ease;
+    opacity: 1;
   }
 
   .album_info p{
-    position: relative;
-    top: 25px;
-  }
+    margin-top: 20px;
 
+  }
+  
   #heart-icon {
     position: absolute;
     width: 30px;

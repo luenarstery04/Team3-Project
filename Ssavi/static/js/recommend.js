@@ -27,54 +27,54 @@ function displayAlbumInfo(albumElement) {
     });
 
 
-// "recommend.js" 파일 내에서 수정된 슬라이드 스크립트
-// 각 슬라이드 그룹을 식별하기 위해 클래스를 사용합니다.
+// 장르별 페이지 버튼 클릭하면 넘기는 자바스크립트.
+// 슬라이드쇼 기능은 css에 들어있다. transition: transform 0.5s ease
 const recomGroups = document.querySelectorAll(".recom-group");
 
 recomGroups.forEach(group => {
     let pages = 0;
-    let positionValue = 0;
     const IMAGE_WIDTH = 1000;
-    const backBtn = group.querySelector(".back"); // 현재 그룹 내의 버튼 선택
-    const nextBtn = group.querySelector(".next"); // 현재 그룹 내의 버튼 선택
-    const images = group.querySelectorAll(".recom_item"); // 현재 그룹 내의 이미지 선택
+    const backBtn = group.querySelector(".back");
+    const nextBtn = group.querySelector(".next");
+    const images = group.querySelectorAll(".recom_item");
     const all_page = images.length;
 
-    // 다음으로 가는 기능
+    console.log(all_page)
+
+    function slideShow() {
+        const positionValue = -pages * IMAGE_WIDTH;
+        for (let i = 0; i < images.length; i++) {
+            images[i].style.transform = `translateX(${positionValue}px)`;
+        }
+    }
+
     function next() {
-        if (pages < all_page) {
-            backBtn.removeAttribute('disabled');
-            for (let i = 0; i < images.length; i++) {
-                images[i].style.transform = `translateX(${positionValue - 1000}px)`;
-            }
-            positionValue -= IMAGE_WIDTH;
+        if (pages < all_page - 1) {
             pages += 1;
-            if (pages === all_page) {
+            slideShow();
+            backBtn.removeAttribute('disabled');
+            if (pages === all_page - 1) {
                 nextBtn.setAttribute('disabled', 'true');
             }
         }
-    };
+    }
 
-    // 이전으로 가는 기능
     function back() {
         if (pages > 0) {
-            nextBtn.removeAttribute('disabled');
-            for (let i = 0; i < images.length; i++) {
-                images[i].style.transform = `translateX(${positionValue + 1000}px)`;
-            }
-            positionValue += IMAGE_WIDTH;
             pages -= 1;
+            slideShow();
+            nextBtn.removeAttribute('disabled');
             if (pages === 0) {
                 backBtn.setAttribute('disabled', 'true');
             }
         }
-    };
+    }
 
     function init() {
         backBtn.setAttribute('disabled', 'true');
         backBtn.addEventListener("click", back);
         nextBtn.addEventListener("click", next);
-    };
+    }
 
     init();
 });
