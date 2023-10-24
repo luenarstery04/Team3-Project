@@ -82,7 +82,7 @@ def detail(request, ab_id):
     songs = sp.album_tracks(album_id=ab_id)['items']
     songs_data = [] # 앨범 안의 노래들의 정보를 담을 리스트
 
-    for s in range(0, len(songs)):
+    for s in range(0, len(songs[0])):
         song = {}  # 각 노래의 정보를 저장할 딕셔너리 생성
         song['song_id'] = songs[s]['id']
         song['song_name'] = songs[s]['name']
@@ -303,6 +303,7 @@ def analysis(request, song_id):
 
     return render(request, 'Ssavi_app/analysis.html', context)
 
+# 태주님 index 페이지에서 기능할 함수
 def album_list(request):
     page = int(request.GET.get('page', 1))
     albums_per_page = 15 # 페이지당 앨범 수
