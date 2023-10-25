@@ -12,11 +12,6 @@
     font-weight: bold;
 }
 
-#instruduction {
-    border: 1px solid black;
-    height: 800px;
-}
-
 #mypage_nav a:hover {
     color: red;
 }
