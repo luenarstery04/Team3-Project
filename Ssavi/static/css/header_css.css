@@ -39,5 +39,9 @@
 }
 
 .logo > a > img {
-    width: 100px;
+    height: 80px;
+}
+
+#searchIcon > img {
+    height: 30px;
 }

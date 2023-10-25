@@ -9,7 +9,9 @@
             <img src="{% static '/image/ssavi2.png' %}" alt="">
         </a></div>
     <div class="menu">
-        <span id="searchIcon">🔍</span>
+        <span id="searchIcon">
+            <img src="{% static '/image/search.png' %}" alt="">
+        </span>
         {% if user.is_authenticated %}
         <a href="">{{ user.user_name }}님 로그인</a>
         <a href="{% url 'sign_out' %}">로그아웃</a>
