@@ -166,34 +166,38 @@ def album_search(request):
     if request.method == "POST":
         search_condition = request.POST['search_condition']
         keyword = request.POST['keyword']
+        request.session['keyword'] = keyword  # 세션에 키워드 저장
+        request.session['search_condition'] = search_condition  # 세션에 검색 조건 저장
+    else:
+        keyword = request.session.get('keyword')  # 세션에서 키워드 가져오기
+        search_condition = request.session.get('search_condition')  # 세션에서 검색 조건 가져오기
 
+    if search_condition == "album_name":
+        album_list = Albums.objects.filter(Q(album_name__contains=keyword)) 
+    elif search_condition == "album_genre":
+        album_list = Albums.objects.filter(Q(album_genre__contains=keyword)) 
+    else:
+        album_list = Albums.objects.filter(Q(album_artist__contains=keyword)) 
 
-        if search_condition == "album_name":
-            album_list = Albums.objects.filter(Q(album_name__contains=keyword)) 
-        elif search_condition == "album_genre":
-            album_list = Albums.objects.filter(Q(album_genre__contains=keyword)) 
-        else:
-            album_list = Albums.objects.filter(Q(album_artist__contains=keyword)) 
+    page = int(request.GET.get('page', 1))
+    albums_per_page = 15 # 페이지당 앨범 수
+    paginator = Paginator(album_list, albums_per_page)
+    page_albums = paginator.get_page(page)
 
-        page = int(request.GET.get('page', 1))
-        albums_per_page = 15 # 페이지당 앨범 수
-        paginator = Paginator(album_list, albums_per_page)
-        page_albums = paginator.get_page(page)
+    likealbum = []
 
-        likealbum = []
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in album_list:
+            if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
+                likealbum.append(i.album_id)
 
-        if request.user.is_authenticated:
-            user_id = request.user.id
-            for i in album_list:
-                if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
-                    likealbum.append(i.album_id)
+    context = {
+        'albums': page_albums,
+        'likealbum' : likealbum
+    }
 
-        context = {
-            'albums': page_albums,
-            'likealbum' : likealbum
-        }
-
-        return render(request, 'ssavi_app/index_search.html', context)
+    return render(request, 'ssavi_app/index_search.html', context)
     
 
 
