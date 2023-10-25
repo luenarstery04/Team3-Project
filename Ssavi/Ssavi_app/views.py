@@ -7,7 +7,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from .models import UsersAppUser
 
 from .models import Albums, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
-
 client_credentials_manager = SpotifyClientCredentials(client_id='c0ef6b3167de4affb312e7fc7366abb4', client_secret='86babd771d3c4098b90fc70ed221cd60')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
