@@ -136,9 +136,9 @@ def analysis(request, song_id):
     elif 'indie pop' in genre:
         genre_audio_feature_all = Indiepop.objects.all()
         genre = 'indie pop'
-    elif genre=='pop':
+    elif genre=='j-pop':
         genre_audio_feature_all = Jpop.objects.all()
-        genre = 'pop'
+        genre = 'j-pop'
     elif 'rock' in genre:
         genre_audio_feature_all = Rock.objects.all()
         genre = 'rock'
@@ -161,10 +161,14 @@ def analysis(request, song_id):
     avg_acousticness = genre_audio_feature_all.aggregate(avg_acousticness=Avg('acousticness'))['avg_acousticness']
     avg_danceability = genre_audio_feature_all.aggregate(avg_danceability=Avg('danceability'))['avg_danceability']
     avg_energy = genre_audio_feature_all.aggregate(avg_energy=Avg('energy'))['avg_energy']
-    avg_loudness = 10**(genre_audio_feature_all.aggregate(avg_loudness=Avg('loudness'))['avg_loudness'] / 10)
+    avg_loudness = genre_audio_feature_all.aggregate(avg_loudness=Avg('loudness'))['avg_loudness']
     avg_speechiness = genre_audio_feature_all.aggregate(avg_speechiness=Avg('speechiness'))['avg_speechiness']
-    avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo'] / 100
+    avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo']
     avg_valence = genre_audio_feature_all.aggregate(avg_valence=Avg('valence'))['avg_valence']
+
+
+    print(type(avg_acousticness))
+    print(type(avg_danceability))
 
     # 장르의 평균 audio feature
     genre_audio_feature_data = {
