@@ -13,10 +13,6 @@ import spotipy
 from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from .models import UsersAppUser
-
-from .models import Albums, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
-
 client_credentials_manager = SpotifyClientCredentials(client_id='d95055726cab4d388a7eca1c84f4d7f9', client_secret='e7879ea497be4485b92964f9d6a2f1be')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
