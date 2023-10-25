@@ -20,3 +20,42 @@
 #mypage_nav a:hover {
     color: red;
 }
+
+#plheader {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+#plheader th {
+    border: 1px solid black;
+}
+
+.pl-th-1 {
+    width: 10%
+}
+
+#laheader {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+#laheader th {
+    border: 1px solid black;
+}
+
+.la-th-1 {
+    width: 10%
+}
+
+#ltheader {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+#ltheader th {
+    border: 1px solid black;
+}
+
+.lt-th-1 {
+    width: 10%
+}

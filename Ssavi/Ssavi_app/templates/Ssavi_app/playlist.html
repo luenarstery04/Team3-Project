@@ -10,15 +10,14 @@
     </nav>
     <div id="playlistBox">
         <div id="header">
-            <table>
+            <table id="plheader">
                 <tr>
-                    <th>No.</th>
+                    <th class="pl-th-1">No.</th>
                     <th>곡 정보</th>
                 </tr>
             </table>
         </div>
         <div id="play_list">
-            <!-- 구현은 해놨으나 테스트 케이스 구동을 해보지 않아 오류 여부 아직 모름 -->
             {% for playlist in playlists %}
             <p class="playlist_no">{{playlist.playlist_no}}</p>
             <p class="playlist_img">{{playlist.track.album.album_image}}</p>
