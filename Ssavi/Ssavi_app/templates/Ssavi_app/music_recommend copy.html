@@ -30,7 +30,7 @@
                     "error"
                 </audio>
                 <div class="like-button">
-                    <img id="heart-icon" onclick="likeAlbum(this, '{{ track.track_id }}')" data-track-id="{{ track.track_id }}" src="{% static '/image/Thumbs_up.png' %}" alt="Liked">
+                    <img id="heart-icon" onclick="likeAlbum(this, '{{track.track_id}}')" src="{% static '/image/Thumbs_up.png' %}" alt="Liked">
                 </div>
             </li>
             {% endfor %}
@@ -39,34 +39,6 @@
 </div>
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script>
-    // 페이지가 로드될 때 실행될 함수
-    
-    // 'liketrack' 변수는 Python에서 전달된 변수로 JavaScript에서 사용 가능
-    var liketrack = {{ liketrack|safe }};
-    
-    
-    // 페이지가 로드될 때 실행될 함수
-    window.addEventListener('load', function() {
-        var heartIcons = document.querySelectorAll("#heart-icon");
-
-        heartIcons.forEach(function(heartIcon) {
-           
-        var trackId = heartIcon.getAttribute("data-track-id");
-
-        if (liketrack.includes(trackId)) {
-            heartIcon.src = "{% static '/image/Thumbs_up_fill.png' %}";
-        } else {
-            heartIcon.src = "{% static '/image/Thumbs_up.png' %}";
-        }
-
-        });   
-    });
-
-
-
-    
-    //아래는 정상 적동
-
     function likeAlbum(heartIcon, trackId) {
         var currentImageSrc = heartIcon.src;
         var currentImageFileName = currentImageSrc.substr(currentImageSrc.lastIndexOf('/') + 1);
@@ -101,8 +73,6 @@
             alert('로그인이 필요합니다.');
         }
     }
-
-
 
 </script>
 {% endblock content %}
