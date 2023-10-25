@@ -123,37 +123,34 @@ def analysis(request, song_id):
     artist_id = track_info["artists"][0]["id"]
     artists_info = sp.artist(artist_id)
     artist_name = artists_info['name']
-    genre = artists_info["genres"][0]
-    
+
+    Album = get_object_or_404(Albums, pk=album_id)
+
+    genre = Album.album_genre
+
     current_song = [album_image_url, song_name, artist_name, Track.track_preview, song_id]
     
     # 각 장르마다 평균 audio feature를 구하기 위해 모델 오브젝트 불러옴
     if genre=='k-pop':
         genre_audio_feature_all = Kpop.objects.all()
-    elif 'alternative' in genre:
+    elif genre == 'alternative':
         genre_audio_feature_all = Alternative.objects.all()
-        genre = 'alternative'
-    elif 'indie pop' in genre:
+    elif genre == 'indie Pop':
         genre_audio_feature_all = Indiepop.objects.all()
-        genre = 'indie pop'
-    elif genre=='j-pop':
+    elif genre=='J-pop':
         genre_audio_feature_all = Jpop.objects.all()
-        genre = 'j-pop'
-    elif 'rock' in genre:
+    elif genre == 'rock':
         genre_audio_feature_all = Rock.objects.all()
-        genre = 'rock'
-    elif 'r&b' in genre:
+    elif genre == 'R&B':
         genre_audio_feature_all = Rnb.objects.all()
-        genre = 'r&b'
-    elif 'jazz' in genre:
+    elif genre == 'jazz':
         genre_audio_feature_all = Jazz.objects.all()
-        genre = 'jazz'
-    elif 'latin' in genre:
+    elif genre == 'latin':
         genre_audio_feature_all = Latin.objects.all()
-        genre = 'latin'
-    elif 'hip hop' in genre:
+    elif genre == 'hip hop':
         genre_audio_feature_all = Hiphop.objects.all()
-        genre = 'hip hop'
+    elif genre == 'electro':
+        genre_audio_feature_all = Electro.objects.all()
     else:
         print("오류")
 
@@ -161,9 +158,9 @@ def analysis(request, song_id):
     avg_acousticness = genre_audio_feature_all.aggregate(avg_acousticness=Avg('acousticness'))['avg_acousticness']
     avg_danceability = genre_audio_feature_all.aggregate(avg_danceability=Avg('danceability'))['avg_danceability']
     avg_energy = genre_audio_feature_all.aggregate(avg_energy=Avg('energy'))['avg_energy']
-    avg_loudness = genre_audio_feature_all.aggregate(avg_loudness=Avg('loudness'))['avg_loudness']
+    avg_loudness = 10**(genre_audio_feature_all.aggregate(avg_loudness=Avg('loudness'))['avg_loudness'] / 10)
     avg_speechiness = genre_audio_feature_all.aggregate(avg_speechiness=Avg('speechiness'))['avg_speechiness']
-    avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo']
+    avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo'] / 100
     avg_valence = genre_audio_feature_all.aggregate(avg_valence=Avg('valence'))['avg_valence']
 
 
