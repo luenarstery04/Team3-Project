@@ -346,3 +346,4 @@ class UsersAppUserUserPermissions(models.Model):
         managed = False
         db_table = 'users_app_user_user_permissions'
         unique_together = (('user', 'permission'),)
+

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import *
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-
+from django.db.models import Q 
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
@@ -159,3 +159,50 @@ def like_album(request):
             return JsonResponse({'error': '사용자가 존재하지 않습니다.'}, status=404)
         except Albums.DoesNotExist:
             return JsonResponse({'error': '트랙이 존재하지 않습니다.'}, status=404)
+        
+
+# 검색 쿼리 수행
+def album_search(request):
+    if request.method == "POST":
+        search_condition = request.POST['search_condition']
+        keyword = request.POST['keyword']
+
+
+        if search_condition == "album_name":
+            album_list = Albums.objects.filter(Q(album_name__contains=keyword)) 
+        elif search_condition == "album_genre":
+            album_list = Albums.objects.filter(Q(album_genre__contains=keyword)) 
+        else:
+            album_list = Albums.objects.filter(Q(album_artist__contains=keyword)) 
+
+        page = int(request.GET.get('page', 1))
+        albums_per_page = 15 # 페이지당 앨범 수
+        paginator = Paginator(album_list, albums_per_page)
+        page_albums = paginator.get_page(page)
+
+        likealbum = []
+
+        if request.user.is_authenticated:
+            user_id = request.user.id
+            for i in album_list:
+                if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
+                    likealbum.append(i.album_id)
+
+        context = {
+            'albums': page_albums,
+            'likealbum' : likealbum
+        }
+
+        return render(request, 'ssavi_app/index_search.html', context)
+    
+
+
+
+
+
+
+
+
+
+
+
