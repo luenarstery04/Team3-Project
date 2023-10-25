@@ -8,6 +8,6 @@ DATABASES = {
         # PASSWORD는 반드시 본인 sql PASSWORD로 진행
         'PASSWORD': 'Dluen886905!',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '1234'
     }
 }
