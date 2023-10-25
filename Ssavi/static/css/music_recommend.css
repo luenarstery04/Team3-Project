@@ -1,4 +1,4 @@
-/* .menu a {
+.menu a {
     
     margin-left: 20px;
     text-decoration: none;
@@ -18,7 +18,7 @@ nav.menu a {
     color: #333;
     margin: 0 20px;
     font-weight: bold;
-} */
+}
 
 /* 리스트 항목 스타일 */
 li {

@@ -17,7 +17,7 @@ from .models import UsersAppUser
 
 from .models import Albums, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
 
-client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csecret)
+client_credentials_manager = SpotifyClientCredentials(client_id='d95055726cab4d388a7eca1c84f4d7f9', client_secret='e7879ea497be4485b92964f9d6a2f1be')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
@@ -85,9 +85,22 @@ def get_albuminfo():
 
     return album_infos
 
-def album_list(request):
-    albums = Albums.objects.all()[:12]
-    return render(request, 'Ssavi_app/index.html', {'albums': albums})
+def music_recommend(request):
+    tracks = Tracks.objects.all()
+    liketrack = []
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in tracks:
+            if LikedTrack.objects.filter(id=user_id, track_id=i.track_id).exists():
+                liketrack.append(i.track_id)
+
+    context = {
+        'tracks': tracks,
+        'liketrack' : liketrack
+    }
+
+    return render(request, 'Ssavi_app/music_recommend.html', context)
 
 def detail(request, ab_id):
     album = get_object_or_404(Albums, pk=ab_id)
