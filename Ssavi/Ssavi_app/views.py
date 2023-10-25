@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from .models import *
 from django.core.paginator import Paginator
@@ -6,55 +7,22 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from mysqlsearcher import *
 from django.db.models import Avg
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
+
 import spotipy
 from mySpotipyID import cid, csecret
 from spotipy.oauth2 import SpotifyClientCredentials
-import json
+
+from .models import UsersAppUser
+
+from .models import Albums, Tracks, AudioFeatures, Kpop, Jpop, Jazz, Latin, Alternative, Hiphop, Rnb, Rock, Indiepop
 
 client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csecret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Create your views here.
-# def index(request):
-#     albums = Albums.objects.all()
-#     paginator = Paginator(albums, albums_per_page)
-#     page_albums = paginator.get_page(page)
-
-#     likealbum = []
-
-#     if request.user.is_authenticated:
-#         user_id = request.user.id
-#         for i in albums:
-#             if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
-#                 likealbum.append(i.album_id)
-
-#     context = {
-#         'albums': page_albums,
-#         'likealbum' : likealbum
-#     }
-
-#     return render(request, 'Ssavi_app/index.html', context)
-
-
-def music_recommend(request):
-    tracks = Tracks.objects.all()
-    liketrack = []
-
-    if request.user.is_authenticated:
-        user_id = request.user.id
-        for i in tracks:
-            if LikedTrack.objects.filter(id=user_id, track_id=i.track_id).exists():
-                liketrack.append(i.track_id)
-
-    context = {
-        'tracks': tracks,
-        'liketrack' : liketrack
-    }
-
-    return render(request, 'Ssavi_app/music_recommend.html', context)
+def index(request):
+    return render(request, 'Ssavi_app/index.html')
 
 def recommend(request):
     # 로그인하지 않은 채 그냥 들어간다면 장르는 except로 고정된다.
@@ -116,12 +84,31 @@ def get_albuminfo():
         album_infos.append(album_info)
 
     return album_infos
-           
+
+def album_list(request):
+    albums = Albums.objects.all()[:12]
+    return render(request, 'Ssavi_app/index.html', {'albums': albums})
 
 def detail(request, ab_id):
     album = get_object_or_404(Albums, pk=ab_id)
     songs = sp.album_tracks(album_id=ab_id)['items']
-    songs_data = []  # 앨범 안의 노래들의 정보를 담을 리스트
+    songs_data = [] # 앨범 안의 노래들의 정보를 담을 리스트
+    tracks = Tracks.objects.all()
+    liketrack = []
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in tracks:
+            if LikedTrack.objects.filter(id=user_id, track_id=i.track_id).exists():
+                liketrack.append(i.track_id)
+
+    albums = Albums.objects.all()
+    likealbum = []
+    if request.user.is_authenticated:
+            user_id = request.user.id
+            for i in albums:
+                if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
+                    likealbum.append(i.album_id)
 
     for s in range(0, len(songs)):
         song = {}  # 각 노래의 정보를 저장할 딕셔너리 생성
@@ -131,6 +118,8 @@ def detail(request, ab_id):
         song['song_preview_url'] = songs[s]['preview_url']
         songs_data.append(song)  # 노래 정보를 리스트에 추가
 
+    
+
     # 장르가 문자열로 되어있기 때문에 문자 제외한 부분 제거하고 리스트로 저장.
     genres = album.album_genre.strip('[]').replace("'", "").split(', ')
     
@@ -139,10 +128,12 @@ def detail(request, ab_id):
         'album': album,
         'songs_data': songs_data,
         'genres': genres,
+        'likealbum' : likealbum,
+        'tracks': tracks,
+        'liketrack' : liketrack
     }
 
     return render(request, 'Ssavi_app/detail.html', context)
-
 
 import matplotlib
 matplotlib.use('Agg')  # Matplotlib이 인터페이스를 생성하지 않도록 설정
@@ -166,29 +157,34 @@ def analysis(request, song_id):
     artist_id = track_info["artists"][0]["id"]
     artists_info = sp.artist(artist_id)
     artist_name = artists_info['name']
-    genre = artists_info["genres"][0]
-    
-    current_song = [album_image_url, song_name, artist_name, Track.track_preview]
+
+    Album = get_object_or_404(Albums, pk=album_id)
+
+    genre = Album.album_genre
+
+    current_song = [album_image_url, song_name, artist_name, Track.track_preview, song_id]
     
     # 각 장르마다 평균 audio feature를 구하기 위해 모델 오브젝트 불러옴
     if genre=='k-pop':
         genre_audio_feature_all = Kpop.objects.all()
-    elif genre=='pop':
-        genre_audio_feature_all = Jpop.objects.all()
-    elif genre=='rock':
-        genre_audio_feature_all = Rock.objects.all()
-    elif genre=='r&b':
-        genre_audio_feature_all = Rnb.objects.all()
-    elif genre=='jazz':
-        genre_audio_feature_all = Jazz.objects.all()
-    elif genre=='latin':
-        genre_audio_feature_all = Latin.objects.all()
-    elif genre=='hip hop':
-        genre_audio_feature_all = Hiphop.objects.all()
-    elif genre=='indie pop':
-        genre_audio_feature_all = Indiepop.objects.all()
-    elif genre=='alternative':
+    elif genre == 'alternative':
         genre_audio_feature_all = Alternative.objects.all()
+    elif genre == 'indie Pop':
+        genre_audio_feature_all = Indiepop.objects.all()
+    elif genre=='J-pop':
+        genre_audio_feature_all = Jpop.objects.all()
+    elif genre == 'rock':
+        genre_audio_feature_all = Rock.objects.all()
+    elif genre == 'R&B':
+        genre_audio_feature_all = Rnb.objects.all()
+    elif genre == 'jazz':
+        genre_audio_feature_all = Jazz.objects.all()
+    elif genre == 'latin':
+        genre_audio_feature_all = Latin.objects.all()
+    elif genre == 'hip hop':
+        genre_audio_feature_all = Hiphop.objects.all()
+    elif genre == 'electro':
+        genre_audio_feature_all = Electro.objects.all()
     else:
         print("오류")
 
@@ -200,6 +196,10 @@ def analysis(request, song_id):
     avg_speechiness = genre_audio_feature_all.aggregate(avg_speechiness=Avg('speechiness'))['avg_speechiness']
     avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo'] / 100
     avg_valence = genre_audio_feature_all.aggregate(avg_valence=Avg('valence'))['avg_valence']
+
+
+    print(type(avg_acousticness))
+    print(type(avg_danceability))
 
     # 장르의 평균 audio feature
     genre_audio_feature_data = {
@@ -256,7 +256,10 @@ def analysis(request, song_id):
     plt.close(fig)
     ####################################################################################################################################
     # 같은 장르의 다른 곡들 추천
-    recommendations = sp.recommendations(seed_tracks=[song_id], limit=7)
+    recommendations = sp.recommendations(seed_tracks=[song_id], target_acousticness=audio_feature.acousticness, target_danceability=audio_feature.danceability,
+                                    target_energy=audio_feature.energy, target_loudness=audio_feature.loudness,
+                                    target_speechiness=audio_feature.speechiness, target_tempo=audio_feature.tempo,
+                                    target_valence=audio_feature.valence, limit=7)
 
     # 추천 곡과 앨범 이미지, 곡 제목, 가수, 그래프 이미지 저장
     recommendation_album_images = []
@@ -277,19 +280,6 @@ def analysis(request, song_id):
             artists_str = ', '.join(artists)
             recommendation_track_artists.append(artists_str)
             recommendation_tracks_preview_urls.append(track['preview_url'])
-    
-    # # 데이터베이스에 곡이 없으면 저장
-    # for track_id, track_name, track_preview, album_id in zip(recommendation_tracks, recommendation_track_names, recommendation_tracks_preview_urls, recommendation_album_id):
-    #     existing_track = Track.objects.filter(track_id=track_id).first()
-
-    #     if not existing_track:
-    #         new_track = Track(
-    #             track_id=track_id,
-    #             track_name=track_name,
-    #             track_preview=track_preview,
-    #             album=album_id
-    #         )
-    #         new_track.save()
 
     
     for i in range(0, 5):
@@ -331,7 +321,16 @@ def analysis(request, song_id):
         image_data1 = base64.b64encode(buffer.read()).decode('utf-8')
         recommendations_images.append(image_data1)
         plt.close(fig)
-        
+    
+    tracks = Tracks.objects.all()
+    liketrack = []
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in tracks:
+            if LikedTrack.objects.filter(id=user_id, track_id=i.track_id).exists():
+                liketrack.append(i.track_id)
+
     context = {
         'image' : image_data,
         'current_song' : current_song,
@@ -339,7 +338,9 @@ def analysis(request, song_id):
         'recommendation_track_names': recommendation_track_names,
         'recommendation_track_artists' : recommendation_track_artists,
         'recommendation_tracks_preview_urls' : recommendation_tracks_preview_urls,
-        'recommendations_images' : recommendations_images
+        'recommendations_images' : recommendations_images,
+        'tracks': tracks,
+        'liketrack' : liketrack
     }
 
     return render(request, 'Ssavi_app/analysis.html', context)

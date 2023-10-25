@@ -1,31 +1,32 @@
 .menu a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
 }
 
 nav.menu {
-    margin: 20px 0 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav.menu a {
-    text-decoration: none;
-    color: #333;
-    margin: 0 20px;
-    font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  margin: 0 20px;
+  font-weight: bold;
 }
 
 
+
 #indexBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%; /* 화면 전체 높이를 차지하도록 설정 (선택적) */
-    border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* 화면 전체 높이를 차지하도록 설정 (선택적) */
+  border: 1px solid black;
 }
 
  /* 스타일을 조절하세요 */
@@ -62,8 +63,8 @@ nav.menu a {
     opacity: 1;
   }
 
-  .album_info p{
-    margin-top: 20px;
+.album_info p{
+  margin-top: 20px;
 
   }
   
