@@ -1,2 +1,2 @@
 cid = 'd95055726cab4d388a7eca1c84f4d7f9'
-csecret = '0a29bcc039974031a517576cb8c9ad53'
+csecret = 'e7879ea497be4485b92964f9d6a2f1be'

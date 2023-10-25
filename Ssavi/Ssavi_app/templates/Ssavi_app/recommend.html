@@ -32,7 +32,7 @@
                             <p class="artist_name">{{ album.album_artist }}</p>
                             <p class="release_date">{{ album.album_release_date }}</p>
                             <div class="like-button">
-                                <img onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
+                                <img id="heart-icon" onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
                             </div>
                         </div>
                     </a>

@@ -19,6 +19,7 @@ nav.menu a {
     font-weight: bold;
 }
 
+
 #indexBox {
     display: flex;
     align-items: center;
@@ -33,11 +34,12 @@ nav.menu a {
     float: left;
     margin: 10px;
     width: 200px; /* 앨범 카드의 너비를 조절하세요 */
+    height: 200px;
   }
 
   .album_img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 200px;
   }
 
   .album_info {
@@ -49,20 +51,33 @@ nav.menu a {
     bottom: 0;
     width: 100%; /* 이미지와 동일한 너비 */
     height: 100%; /* 이미지와 동일한 높이 */
+    filter: blur(3px) grayscale(100%);
+    transition: 1.5s ease;
+    opacity: 0;
+  }
 
-
+  .album_info:hover {
+    filter: blur(0) grayscale(0);
+    transition: opacity 0.7s ease;
+    opacity: 1;
   }
 
   .album_info p{
     margin-top: 20px;
 
   }
-  .like-button button {
-    background: #3498db;
+  
+  #heart-icon {
     position: absolute;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 10px;
     right: 5px;
     bottom: 5px;
     color: white;
+    background: none;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -71,3 +86,38 @@ nav.menu a {
   .clear {
     clear: both;
   }
+
+  .pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.step-links {
+    display: inline-block;
+    padding: 0;
+}
+
+.step-links a {
+    color: #000;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+}
+
+.step-links a:hover {
+    background-color: #ddd;
+}
+
+.step-links .current-page {
+    color: #fff;
+    background-color: #007bff;
+    padding: 10px;
+    border: 1px solid #007bff;
+}
+
+.heart-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}

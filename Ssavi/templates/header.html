@@ -2,32 +2,18 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/header_css.css' %}">
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
-<script>
-    $(document).ready(function() {
-        const searchEngine = $(".search-engine");
-        const searchIcon = $("#searchIcon");
-        
-        searchIcon.click(function() {
-            if (searchEngine.css("display") === "none") {
-                searchEngine.css("display", "flex");
-            } else {
-                searchEngine.css("display", "none");
-            }
-        });
-    });
-</script>
 
 <div id="headerBox">
     <div class="logo">
         <a href="{% url 'index' %}">
-            <img src="{% static '/image/ssavi.png' %}" alt="">
+            <img src="{% static '/image/ssavi2.png' %}" alt="">
         </a></div>
     <div class="menu">
         <span id="searchIcon">🔍</span>
         {% if user.is_authenticated %}
         <a href="">{{ user.user_name }}님 로그인</a>
         <a href="{% url 'sign_out' %}">로그아웃</a>
-        <a href="#">마이페이지</a>
+        <a href="{% url 'pwd_check' %}">마이페이지</a>
         {% else %}
         <a href="{% url 'sign_in' %}">로그인</a>
         <a href="{% url 'sign_up' %}">회원가입</a>
@@ -46,3 +32,18 @@
     <input type="text" class="search-input" placeholder="검색어를 입력하세요">
     <button class="search-button">검색</button>
 </div>
+
+<script>
+    $(document).ready(function() {
+        const searchEngine = $(".search-engine");
+        const searchIcon = $("#searchIcon");
+        
+        searchIcon.click(function() {
+            if (searchEngine.css("display") === "none") {
+                searchEngine.css("display", "flex");
+            } else {
+                searchEngine.css("display", "none");
+            }
+        });
+    });
+</script>
