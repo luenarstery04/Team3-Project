@@ -31,12 +31,15 @@ li {
     align-items: center;
 }
 
-/* 이미지 스타일 */
 img {
-    width: 100px;
-    height: 100px;
     margin-right: 10px;
     border-radius: 5px;
+}
+
+/* 이미지 스타일 */
+.recom_track_img {
+    width: 100px;
+    height: 100px;
 }
 
 /* 컨테이너 스타일 */

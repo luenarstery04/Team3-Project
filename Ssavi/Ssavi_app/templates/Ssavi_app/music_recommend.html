@@ -19,7 +19,7 @@
         <ul>
             {% for track in tracks %}
             <li class='track_li'>
-                <img src="{{ track.album.album_image }}" alt="{{ track.album.album_artist }} Album Image">
+                <img class="recom_track_img" src="{{ track.album.album_image }}" alt="{{ track.album.album_artist }} Album Image">
                 <div class="container">
                     <h2>곡명 : {{ track.track_name }}</h2>
                     <p>아티스트 : {{ track.album.album_artist }}</p>

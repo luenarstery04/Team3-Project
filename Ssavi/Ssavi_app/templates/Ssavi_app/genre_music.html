@@ -10,7 +10,7 @@
 <nav class="menu">
     <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
-    <a href="#">음악 추천 받기</a>
+    <a href="{% url 'music_recommend' %}">음악 추천 받기</a>
 </nav>
 <div id="recomBox">
     <h2>'{{ user.user_name }}'님의 맞춤 장르입니다.</h2>
@@ -54,6 +54,7 @@
 <nav class="menu">
     <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
+    <a href="{% url 'music_recommend' %}">음악 추천 받기</a>
 </nav>
 <div id="recomBox">
     <h2>현재 최신 인기 앨범들을 만나보세요!</h2>
