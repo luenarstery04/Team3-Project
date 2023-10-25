@@ -6,8 +6,8 @@ DATABASES = {
         'NAME': 'ssavi_db',
         'USER': 'root',
         # PASSWORD는 반드시 본인 sql PASSWORD로 진행
-        'PASSWORD': 'Dluen886905!',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
-        'PORT': '1234'
+        'PORT': '3306'
     }
 }
