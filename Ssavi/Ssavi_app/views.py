@@ -358,7 +358,7 @@ def analysis(request, song_id):
 def album_list(request):
     page = int(request.GET.get('page', 1))
     albums_per_page = 15 # 페이지당 앨범 수
-    albums = Albums.objects.all()
+    albums = Albums.objects.all().order_by('-album_release_date')
     paginator = Paginator(albums, albums_per_page)
     page_albums = paginator.get_page(page)
 

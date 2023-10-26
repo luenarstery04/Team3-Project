@@ -18,7 +18,7 @@
             <div id="album_result">
                 {% for album in albums %}
                 <div class="album">
-                    <a href="" onmouseover="displayAlbumInfo(this)">
+                    <a href="{% url 'detail' album.album_id %}" onmouseover="displayAlbumInfo(this)">
                         <img src="{{ album.album_image }}" alt="{{ album.album_name }}" class="album_img" onmouseover="displayAlbumInfo(this)">
                         <div class="album_info">
                             <p class="album_name">{{ album.album_name }}</p>
