@@ -11,4 +11,10 @@ urlpatterns = [
     path('like_track/', views.like_track, name='like_track'),
     path('like_album/', views.like_album, name='like_album'),
     path('album/search/', views.album_search, name='album_search'),
+
+    path('mypage/', views.mypage, name='mypage'),
+    path('playlist/', views.playlist, name='playlist'),
+    path('liked_album/', views.liked_album, name='liked_album'),
+    path('liked_track/', views.liked_track, name='liked_track'),
+    path('delPlayList/<str:pk>', views.delPlayList, name='delete'),
 ]

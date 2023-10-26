@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import *
 from django.core.paginator import Paginator
 from django.db.models import Q 
@@ -205,6 +205,7 @@ def analysis(request, song_id):
     avg_speechiness = genre_audio_feature_all.aggregate(avg_speechiness=Avg('speechiness'))['avg_speechiness']
     avg_tempo = genre_audio_feature_all.aggregate(avg_tempo=Avg('tempo'))['avg_tempo'] / 100
     avg_valence = genre_audio_feature_all.aggregate(avg_valence=Avg('valence'))['avg_valence']
+
 
 
     print(type(avg_acousticness))
@@ -462,15 +463,73 @@ def album_search(request):
     }
 
     return render(request, 'ssavi_app/index_search.html', context)
+
+
+# 마이페이지 함수
+def playlist(request):
+    playlists = PlayList.objects.all()
+    return render(request, 'Ssavi_app/playlist.html', {"playlists":playlists})
+
+def liked_album(request):
+    albums = Albums.objects.all()
+    likealbum = []
+    liked_albums_info = []
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in albums:
+            if LikedAlbum.objects.filter(id=user_id, album_id=i.album_id).exists():
+                likealbum.append(i.album_id)
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for album_id in likealbum:
+            album = Albums.objects.get(album_id=album_id)
+            album_image = album.album_image
+            track_info = {
+                'album_image' : album_image,
+                'album_id' : album_id,
+                'album_name': album.album_name,
+                'album_artist': album.album_artist,
+            }
+            liked_albums_info.append(track_info)
+
+
+    return render(request, 'Ssavi_app/liked_album.html', {'liked_albums_info' : liked_albums_info, 'likealbum' : likealbum})
+
+def liked_track(request):
+    tracks = Tracks.objects.all()
+    liketrack = []
+    liked_tracks_info = []
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for i in tracks:
+            if LikedTrack.objects.filter(id=user_id, track_id=i.track_id).exists():
+                liketrack.append(i.track_id)
+
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        for track_id in liketrack:
+            track = Tracks.objects.get(track_id=track_id)
+            album_image = sp.album(track.album_id)['images'][0]['url']
+            track_info = {
+                'album_image' : album_image,
+                'track_id' : track_id,
+                'track_name': track.track_name,
+                'track_preview': track.track_preview,
+            }
+            liked_tracks_info.append(track_info)
     
 
 
+    return render(request, 'Ssavi_app/liked_track.html', {'liked_tracks_info' : liked_tracks_info, 'liketrack' : liketrack})
 
+def delPlayList(request, pk):
+    data = PlayList.objects.get(id=pk)
+    data.delete()
+    return redirect('playlist')
 
-
-
-
-
-
-
-
+def mypage(request):
+    return render(request, 'Ssavi_app/mypage.html')
