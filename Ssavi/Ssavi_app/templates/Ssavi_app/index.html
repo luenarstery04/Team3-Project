@@ -3,16 +3,17 @@
 {% load static %}
 {% block content %}
 
-<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static '/js/jquery-3.7.1.min.js' %}"></script>
 <link rel="stylesheet" href="{% static '/css/index.css' %}">
 <nav class="menu">
     {% if user.is_authenticated %}
     <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
-    <a href="#">음악 추천 받기</a>
+    <a href="{% url 'music_recommend' %}">음악 추천 받기</a>
     {% else %}
     <a href="{% url 'genre_albums' %}">장르별 음악</a>
     <a href="{% url 'index' %}">최신음악</a>
+    <a href="{% url 'music_recommend' %}">음악 추천 받기</a>
     {% endif %}
 </nav>
 
@@ -29,7 +30,7 @@
                             <p class="artist_name">{{ album.album_artist }}</p>
                             <p class="release_date">{{ album.album_release_date }}</p>
                             <div class="like-button">
-                                <img id="heart-icon" onclick="likeAlbum(this)" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
+                                <img id="heart-icon" onclick="likeAlbum(this, '{{ album.album_id }}')" data-album-id="{{ album.album_id }}" src="{% static '/image/heart_icon1.png' %}" alt="Liked">
                             </div>
                         </div>
                     </a>
@@ -71,6 +72,30 @@
 </div>
 
 <script>
+        // 페이지가 로드될 때 실행될 함수
+    
+    // 'liketrack' 변수는 Python에서 전달된 변수로 JavaScript에서 사용 가능
+    var likealbum = {{ likealbum|safe }};
+    
+    
+    // 페이지가 로드될 때 실행될 함수
+    window.addEventListener('load', function() {
+        var heartIcons = document.querySelectorAll("#heart-icon");
+
+        heartIcons.forEach(function(heartIcon) {
+           
+        var albumId = heartIcon.getAttribute("data-album-id");
+
+        if (likealbum.includes(albumId)) {
+            heartIcon.src = "{% static '/image/heart_icon2.png' %}";
+        } else {
+            heartIcon.src = "{% static '/image/heart_icon1.png' %}";
+        }
+
+        });   
+    });
+
+
     function displayAlbumInfo(albumElement) {
         var albumInfo = albumElement.querySelector('.album_info');
         if (albumInfo) {
@@ -85,25 +110,41 @@
         }
     }
     
-    function likeAlbum(heartIcon) {
-        alert('좋아요가 클릭되었습니다.');
+    function likeAlbum(heartIcon, albumId) {
         var currentImageSrc = heartIcon.src;
-    
-        // 현재 이미지의 src 속성에서 파일 이름을 추출
         var currentImageFileName = currentImageSrc.substr(currentImageSrc.lastIndexOf('/') + 1);
         
         if (currentImageFileName === 'heart_icon1.png') {
-            // 현재 이미지가 heart_icon1.png인 경우, 이미지를 heart_icon2.png로 변경
             heartIcon.src = '{% static "/image/heart_icon2.png" %}';
+            likeTrack(albumId, true);
         } else {
-            // 그렇지 않으면 이미지를 heart_icon1.png로 변경
             heartIcon.src = '{% static "/image/heart_icon1.png" %}';
+            likeTrack(albumId, false);
         }
         
-        // 이미지를 변경한 후 이벤트의 전파를 중단시키고 기본 동작을 막습니다. 아니면 계속 이미지 바뀌어버림..
         event.preventDefault();
         event.stopPropagation();
     }
+
+    function likeTrack(albumId, isLiked) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/like_album/', true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+        
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                console.log(this.responseText);
+            }
+        }
+        
+        if ({{ request.user.is_authenticated|lower }}) {
+            xhr.send("id={{ request.user.id|default:'null' }}&album_id=" + albumId);
+        } else {
+            alert('로그인이 필요합니다.');
+        }
+    }
+
     
     var albums = document.querySelectorAll('.album');
 
@@ -115,6 +156,9 @@
         albumElement.addEventListener('mouseout', function() {
             hideAlbumInfo(albumElement);
         });
-      });
+    });
+      
+
+
   </script>
 {% endblock content %}
